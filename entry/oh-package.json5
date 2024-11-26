@@ -1,0 +1,13 @@
+{
+  "name": "entry",
+  "version": "1.0.0",
+  "description": "Please describe the basic information.",
+  "main": "",
+  "author": "",
+  "license": "",
+  "dependencies": {
+    // 版本号需根据hvigor及SDK的配套关系进行修改
+    "@ohos/hamock": "1.0.0"
+  }
+}
+

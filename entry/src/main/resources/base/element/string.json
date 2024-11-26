@@ -1,0 +1,32 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "tab_index",
+      "value": "首页"
+    },
+    {
+      "name": "tab_mine",
+      "value": "我的"
+    },
+    {
+      "name": "Universal_sign_language",
+      "value": "通用手语"
+    },
+    {
+      "name": "Local_sign_language",
+      "value": "地方手语"
+    }
+  ]
+}

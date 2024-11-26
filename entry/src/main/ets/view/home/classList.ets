@@ -1,0 +1,59 @@
+//列表
+@Extend(Text) function grayText(){
+  .fontSize(14)
+  .fontColor(Color.Red)
+}
+@Component
+export default struct classList{
+  build() {
+    List({space:10}){
+      ForEach([1,2,3,4,5],()=> {
+        ListItem(){
+          Column(){
+            Row(){
+              Image($r('app.media.app_icon')).width(24)
+              Text('早餐').fontSize(18).fontWeight(700)
+              Text('AAAAAAA').grayText()
+              Blank()
+              Text('199').fontSize(14).fontColor(Color.Blue)
+              Image($r('app.media.Logo'))
+                .width(20)
+            }
+            .width('100%')
+//组内
+            List(){
+              ForEach([1,2],()=>{
+                ListItem(){
+                  Row({space:6}){
+                    Image($r('app.media.class')).width(50)
+                    Column({space:4}){
+                      Text('BBBBBBBB').fontWeight(500)
+                      Text('1片').grayText()
+                    }
+                    Blank()
+                    Text('91qianka').grayText()
+                  }
+                  .width('100%')
+                  .padding(6)
+                }.swipeAction({end:this.deleteButton.bind(this)})
+              })
+            }
+          }
+          .width('100%')
+          .backgroundColor(Color.Pink)
+          .borderRadius(18)
+          .padding(12)
+        }
+      })
+    }
+    .width(940)
+    .height('100%')
+    .margin({top:10})
+  }
+  //删除图标
+  @Builder deleteButton(){
+    Image($r('app.media.class'))
+      .width(40)
+      .margin(5)
+  }
+}
