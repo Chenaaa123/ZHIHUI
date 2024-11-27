@@ -1,6 +1,7 @@
 
 import DictionaryItem from '../viewmodel/DictionaryItem'
 import { JSON } from '@kit.ArkTS'
+import globalState from '../model/CollectWordCountModel';
 
 // export function WordBuilder(name: string, param: Object) {
 //   Word()
@@ -33,6 +34,7 @@ export default struct Word {
   @Consume pageInfos: NavPathStack;
   @State currentIndex: number = 0;
   @State wordDataList: Array<WordData> = []
+  @State isDefaultColor :boolean = true;   //收藏图标颜色
 
 
   aboutToAppear(): void {
@@ -66,6 +68,38 @@ export default struct Word {
     .height(50)
   }
 
+  // 顶部icon
+  @Builder
+  NavigationMenus() {
+    // 定义一个状态变量来存储图标的颜色
+
+    Row() {
+      Image($r('app.media.collect'))
+        .width(26).aspectRatio(1)
+        .margin({right:15,top:15})
+        .fillColor(this.isDefaultColor ? $r('app.color.light_gray') : $r('app.color.primary_color')) // 根据状态变量设置图标颜色
+        .onClick(() => {
+          // 切换颜色状态
+          this.isDefaultColor = !this.isDefaultColor;
+          // 切换计数值
+          globalState.count = this.isDefaultColor ? globalState.count - 1 : globalState.count + 1;
+          console.log("Current count: " + globalState.count); // 打印当前计数值
+        })
+    }.width('20%').justifyContent(FlexAlign.End)
+  }
+
+
+
+  // 标题
+  @Builder
+  titleBuilder() {
+    Row() {
+      Text('词汇详情').fontWeight(500)
+        .margin({top:18})
+        .fontSize(20)
+    }
+  }
+
   @Styles textstyle(){
     .margin({bottom:10,top:10})
   }
@@ -73,7 +107,6 @@ export default struct Word {
     NavDestination() {
       ForEach(this.wordDataList,(item:WordData)=>{
           Column() {
-
             Column() {
               //词汇
               Text(item.wordName)
@@ -159,7 +192,10 @@ export default struct Word {
             .height('100%')
           }.backgroundColor($r('app.color.page_background'))
       })
-    } //.title('词汇详情页')
+    }.title(this.titleBuilder, {
+      backgroundColor:$r('app.color.opacity_white_66')
+      }) // 设置标题
+      .menus(this.NavigationMenus) // 顶部图标
     .onBackPressed(() => {
       this.pageInfos.pop()
       return true

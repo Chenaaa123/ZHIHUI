@@ -12,6 +12,16 @@ export default struct Dictionary {
   @State egDivider: DividerTmp = new DividerTmp(1, 10, 10, '#ffe9f0f0')
   @State iscategory : string =''
 
+  // 标题
+  @Builder
+  titleBuilder() {
+    Row() {
+      Text('词典').fontWeight(500)
+        .margin({top:18})
+        .fontSize(20)
+    }
+  }
+
   @Builder TabContentBuilder(items:DictionaryItem[]){
     List({space:10}){
       ForEach(items,(item:DictionaryItem)=>{
@@ -54,7 +64,6 @@ export default struct Dictionary {
           }
           .tabBar('全部')
 
-
           TabContent() {
             this.TabContentBuilder(ItemDictionaryModel.list(ItemCategoryEnum.Universal_sign_language))
           }
@@ -71,7 +80,10 @@ export default struct Dictionary {
     }
     .height('100%')
     .width('100%')
-  }.title('词典').backgroundColor($r('app.color.opacity_white_66'))
+  }//.title('词典').backgroundColor($r('app.color.opacity_white_66'))
+    .title(this.titleBuilder, {
+      backgroundColor:$r('app.color.opacity_white_66')
+    }) // 设置标题
   }
 }
 

@@ -1,5 +1,6 @@
 //首页主布局
 import { CommonConstants } from '../common/constants/CommonConstants'
+import ItemDictionaryModel from '../model/ItemDictionaryModel'
 import home_bottom_componentOne from '../view/home/home_bottom_componentOne'
 import home_bottom_componentThree from '../view/home/home_bottom_componentThree'
 import home_bottom_componentTwo from '../view/home/home_bottom_componentTwo'
@@ -22,8 +23,14 @@ export default struct Home{
         .backgroundColor($r('app.color.secondary_color'))
         .controlSize(ControlSize.SMALL)
         .onClick(() => {
-          
-          this.pageInfos.pushPath({ name:'Course'});
+          // const label = '高兴'; // 替换为实际的标签值
+          const wordInfo = ItemDictionaryModel.findByWordName(label);
+          if (wordInfo!=null) {
+            // 将词汇信息传递给跳转页面
+            this.pageInfos.pushPath({ name: 'Word', param: wordInfo });
+          } else {
+            console.log('词汇未找到');
+          }
         })
   }
     /*          bottom菜单栏构造     */
@@ -101,7 +108,7 @@ export default struct Home{
           .width('80%')
           .margin({top:10})
           .onClick(() => {
-            this.pageInfos.pushPath({ name: 'Word'});
+            this.pageInfos.pushPath({ name: 'Search_word'});
           })
 
         //功能栏
@@ -154,14 +161,12 @@ export default struct Home{
         .width('100%')
         .position({top:330})
         .height(300)
-      // Button('跳转NavDestination1').onClick((event: ClickEvent) => {
-      //   this.navStack.pushPath({
-      //     name: 'Word'
-      //   })
-      // })
+
       }  //整体样式
       .width('100%')
       .height('100%')
       .backgroundColor($r('app.color.page_background'))
     }
   }
+
+

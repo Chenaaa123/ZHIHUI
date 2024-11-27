@@ -47,6 +47,10 @@
     {
       "name": "light_gray",
       "value": "#b5b5b7"
+    },
+    {
+      "name": "lightest_gray",
+      "value": "#F5F5F5"
     }
 
 

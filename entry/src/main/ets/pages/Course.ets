@@ -4,16 +4,18 @@ import { router } from '@kit.ArkUI';
 
 @Component
 export default struct Course {
+  wordData: string= '';
   @Consume pageInfos: NavPathStack
-
+  // aboutToAppear(): void {
+  //   let data = JSON.stringify(this.pageInfos.getParamByName('Word'));
+  //   this.wordData = data
+  // }
   build() {
     NavDestination(){
       Column(){
-        //1.头部导航
-        this.Header()
-        Text('AAAA')
-        //2.列表
-        // dictionaryList()
+
+        Text('课程')
+
 
       }
       .height('100%')

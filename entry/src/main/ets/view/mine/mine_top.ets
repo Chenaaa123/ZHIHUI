@@ -1,6 +1,10 @@
 import { CommonConstants } from '../../common/constants/CommonConstants'
+import globalState from '../../model/CollectWordCountModel'
+
+
 @Component
 export default  struct mine_top{
+
   build() {
     Column() {
       RelativeContainer() {
@@ -66,7 +70,7 @@ export default  struct mine_top{
           .offset({x:-20,y:-15})
           .width('30%')
 
-        Text('66')
+        Text('globalState.count')
           .textAlign(TextAlign.Center)
           .fontSize(20)
           .fontColor($r('app.color.gray'))

@@ -3,6 +3,7 @@ import Dictionary from './Dictionary'
 import Home from './Home'
 import Leave_word from './Leave_word'
 import Mine from './Mine'
+import Search_word from './Search_word'
 import Word from './Word'
 
 interface Tabs {
@@ -78,9 +79,9 @@ struct Index {
     }else if (name === 'Leave_word') {
       Leave_word()
    }
-    //else if (name === 'Dictionary') {
-    //   Dictionary()
-    // }
+    else if (name === 'Search_word') {
+      Search_word()
+    }
   }
 
   //路由栈, (控制跳转）
