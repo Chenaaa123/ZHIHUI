@@ -2,7 +2,7 @@
 export class CommonConstants {
   static readonly RDB_NAME: string = 'ZHIHUI.db'
 
-  // THOUSANDTH
+  // THOUSANDTH 百分比常量
   static readonly THOUSANDTH_15: string = '1.5%'; // ‘1.5%’
   static readonly THOUSANDTH_12: string = '2.2%'; // ‘2.2%’
   static readonly THOUSANDTH_33: string = '3.3%'; // ‘3.3%’
@@ -23,6 +23,7 @@ export class CommonConstants {
   static readonly THOUSANDTH_940: string = '94%'; // ‘90%’
   static readonly THOUSANDTH_1000: string = '100%'; // ‘100%’
 
+  //默认数值常量
   static readonly DEFAULT_2: number = 2;
 
   static readonly DEFAULT_6: number = 6;
@@ -55,7 +56,13 @@ export class CommonConstants {
 
   static readonly DEFAULT_180: number = 180;
 
-  // fontWeight
+  // fontWeight  字体权重常量
+  static readonly FONT_WEIGHT_350: number = 350;
+
+  static readonly FONT_WEIGHT_380: number = 380;
+
+  static readonly FONT_WEIGHT_300: number = 300;
+
   static readonly FONT_WEIGHT_400: number = 400;
 
   static readonly FONT_WEIGHT_500: number = 500;
@@ -66,20 +73,20 @@ export class CommonConstants {
 
   static readonly FONT_WEIGHT_900: number = 900;
 
-  // opacity
+  // opacity  透明度常量
   static readonly OPACITY_4: number = 0.4;
 
   static readonly OPACITY_6: number = 0.6;
 
-  // radius
+  // radius   边框半径常量
   static readonly BORDER_RADIUS_PERCENT_50: string = '50%';
 
-  // duration
+  // duration  持续时间常量
   static readonly DURATION_1000: number = 1000; // 1000ms
   static readonly DURATION_800: number = 800; // 700ms
   static readonly DURATION_100: number = 100; // 100ms
 
-  // space
+  // space  空间常量
   static readonly SPACE_2: number = 2;
 
   static readonly SPACE_4: number = 4;
@@ -91,7 +98,5 @@ export class CommonConstants {
   static readonly SPACE_10: number = 10;
 
   static readonly SPACE_12: number = 12;
-
-
 
 }

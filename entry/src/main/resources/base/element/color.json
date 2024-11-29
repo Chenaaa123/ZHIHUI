@@ -51,6 +51,14 @@
     {
       "name": "lightest_gray",
       "value": "#F5F5F5"
+    },
+    {
+      "name": "collected_word",
+      "value": "#FFFFFF00"
+    },
+    {
+      "name": "warnIcon",
+      "value": "#FFFF0000"
     }
 
 

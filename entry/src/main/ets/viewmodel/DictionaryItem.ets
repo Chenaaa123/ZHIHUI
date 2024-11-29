@@ -17,6 +17,7 @@ export default class DictionaryItem{
   "action":ResourceStr
 
 
+
   constructor(id:number, wordName:ResourceStr,spell:ResourceStr,
               image:ResourceStr,categoryId:number,
               detail:ResourceStr,action:ResourceStr) {
@@ -27,5 +28,6 @@ export default class DictionaryItem{
     this.categoryId =categoryId
     this.detail = detail
     this.action = action
+
   }
 }

@@ -12,8 +12,13 @@ const words: DictionaryItem[] = [
 ]
 
 
-class ItemDictionaryModel {
+// interface GeneratedTypeLiteralInterface_1 {
+//   items: DictionaryItem[];
+//   count: number;
+// }
 
+class ItemDictionaryModel {
+  //词汇列表
   list(categoryId: ItemCategoryEnum | null = null): DictionaryItem[] {
     if (categoryId === null) {
       return words; // 返回所有项
@@ -21,9 +26,15 @@ class ItemDictionaryModel {
       return words.filter(item => item.categoryId === categoryId);
     }
   }
+  //查询搜索
   findByWordName(wordName: string): DictionaryItem | undefined {
     return words.find(item => item.wordName === wordName);
   }
+  //记录收藏
+  // isCollected(wordName: string): GeneratedTypeLiteralInterface_1 {
+    // const collectedItems = words.filter(item => item.collected === true);
+    // return { items: collectedItems, count: collectedItems.length };
+  // }
 }
 
 

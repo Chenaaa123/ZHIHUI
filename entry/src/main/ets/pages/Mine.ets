@@ -6,16 +6,18 @@ import mine_top from '../view/mine/mine_top'
 
 @Component
 export default struct Mine {
+  @Consume pageInfos: NavPathStack;
   build() {
-    Column() {
-      //顶部
-      mine_top()
-      //列表
-      mine_bottom()
+    NavDestination(){
+      Column() {
+        //顶部
+        mine_top()
+        //列表
+        mine_bottom()
 
-    }.width('100%')
-    .height('100%')
-
+      }.width('100%')
+      .height('100%')
+    }
   }
 }
 

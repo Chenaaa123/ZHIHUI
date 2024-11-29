@@ -2,7 +2,11 @@
 import DictionaryItem from '../viewmodel/DictionaryItem'
 import { JSON } from '@kit.ArkTS'
 import globalState from '../model/CollectWordCountModel';
-
+import { window } from '@kit.ArkUI';
+import { CommonConstants } from '../common/constants/CommonConstants';
+import itemDictionaryModel from '../model/ItemDictionaryModel';
+import ItemDictionaryModel from '../model/ItemDictionaryModel';
+PersistentStorage.persistProp("persistedMapString", new Map<number, string>([]));
 // export function WordBuilder(name: string, param: Object) {
 //   Word()
 // }
@@ -24,18 +28,35 @@ import globalState from '../model/CollectWordCountModel';
     categoryId?: number;
     detail?: string;
     action?: string;
+    collected? : boolean;
   }
+
+
 
 @Component
 export default struct Word {
-
+  @State collectWordsList: Array<WordData> = []
+  // @State collectWordsList: WordData[] = []
   // @State wordData: string = '';
-  @Prop item: DictionaryItem;
+  // @Prop item: DictionaryItem;
   @Consume pageInfos: NavPathStack;
   @State currentIndex: number = 0;
   @State wordDataList: Array<WordData> = []
-  @State isDefaultColor :boolean = true;   //收藏图标颜色
+  @State collectedWordColor : ResourceStr = $r('app.color.lightest_gray')
+  @StorageLink("persistedMapString") persistedMapString: Map<number, string> = new Map<number, string>([]);
 
+
+  // @State collect_word :string = ''
+  // // 设置全屏的方法
+  // onPageShow(): void {
+  //   window.getLastWindow(AppStorage.get('context'), (err, data) => {
+  //     if (err.code) {
+  //       console.error('Failed to get last window.Cause:' + JSON.stringify(err))
+  //       return
+  //     }
+  //     data.setFullScreen(true)
+  //   })
+  // }
 
   aboutToAppear(): void {
     let data = JSON.stringify(this.pageInfos.getParamByName('Word'));
@@ -68,39 +89,17 @@ export default struct Word {
     .height(50)
   }
 
-  // 顶部icon
-  @Builder
-  NavigationMenus() {
-    // 定义一个状态变量来存储图标的颜色
-
-    Row() {
-      Image($r('app.media.collect'))
-        .width(26).aspectRatio(1)
-        .margin({right:15,top:15})
-        .fillColor(this.isDefaultColor ? $r('app.color.light_gray') : $r('app.color.primary_color')) // 根据状态变量设置图标颜色
-        .onClick(() => {
-          // 切换颜色状态
-          this.isDefaultColor = !this.isDefaultColor;
-          // 切换计数值
-          globalState.count = this.isDefaultColor ? globalState.count - 1 : globalState.count + 1;
-          console.log("Current count: " + globalState.count); // 打印当前计数值
-        })
-    }.width('20%').justifyContent(FlexAlign.End)
-  }
-
-
-
   // 标题
   @Builder
   titleBuilder() {
     Row() {
-      Text('词汇详情').fontWeight(500)
+      Text('词汇详情').fontWeight(CommonConstants.FONT_WEIGHT_500)
         .margin({top:18})
         .fontSize(20)
     }
   }
 
-  @Styles textstyle(){
+  @Styles textStyle(){
     .margin({bottom:10,top:10})
   }
   build() {
@@ -108,11 +107,29 @@ export default struct Word {
       ForEach(this.wordDataList,(item:WordData)=>{
           Column() {
             Column() {
-              //词汇
-              Text(item.wordName)
-                .fontSize(40)
-                .fontColor(Color.White)
-                .margin({ left: 18, top: 20 })
+              Row(){
+                //词汇
+                Text(item.wordName)
+                  .fontSize(40)
+                  .fontColor(Color.White)
+                  .margin({ left: 18, top: 20 })
+                Image($r('app.media.collect'))
+                  .width(26).aspectRatio(1)
+                  .margin({right:15,top:15})
+                  .interpolation(ImageInterpolation.High)
+                  .fillColor(!this.persistedMapString.has(item.id as number) ? $r('app.color.lightest_gray') : $r('app.color.collected_word')) // 根据全局状态变量设置图标颜色
+                  .onClick(() => {
+                    const collect_words = ItemDictionaryModel.findByWordName(item.wordName!) || [];
+                    const wordDataArray = collect_words as WordData[];  // 直接将 collect_words 断言为 WordData[] 类型
+                    this.collectWordsList = this.collectWordsList.concat(wordDataArray);
+                    for (let collectWordDataListElement of this.collectWordsList){
+                      console.log("collectWordDataList Element " + collectWordDataListElement.wordName);
+                      if(!this.persistedMapString.has(collectWordDataListElement.id as number))  this.persistedMapString.set(collectWordDataListElement.id as number,collectWordDataListElement.wordName as string)
+                      else this.persistedMapString.delete(collectWordDataListElement.id as number)
+                    }
+                  })
+              }.width('100%').justifyContent(FlexAlign.SpaceBetween)
+
               //横线
               Divider()
                 .color(Color.White)
@@ -141,8 +158,8 @@ export default struct Word {
                       Column() {
                         Text('基础释义')
                           .fontSize(18)
-                          .fontWeight(500)
-                          .textstyle()
+                          .fontWeight(CommonConstants.FONT_WEIGHT_500)
+                          .textStyle()
                         Text(item.detail)
                           .fontSize(13)
                           .height('auto')
@@ -150,8 +167,8 @@ export default struct Word {
 
                         Text('手语图示')
                           .fontSize(18)
-                          .fontWeight(500)
-                          .textstyle()
+                          .fontWeight(CommonConstants.FONT_WEIGHT_500)
+                          .textStyle()
                         // Image($r('app.media.gaoxing'))
                         Image(item.image)
                           .width('70%')
@@ -159,8 +176,8 @@ export default struct Word {
                           .margin({left:'15%'})
                         Text('动作描述')
                           .fontSize(18)
-                          .fontWeight(500)
-                          .textstyle()
+                          .fontWeight(CommonConstants.FONT_WEIGHT_500)
+                          .textStyle()
                         Text(item.action)
                           .fontSize(13)
                           .height('auto')
@@ -195,7 +212,7 @@ export default struct Word {
     }.title(this.titleBuilder, {
       backgroundColor:$r('app.color.opacity_white_66')
       }) // 设置标题
-      .menus(this.NavigationMenus) // 顶部图标
+      // .menus(this.NavigationMenus) // 顶部图标
     .onBackPressed(() => {
       this.pageInfos.pop()
       return true

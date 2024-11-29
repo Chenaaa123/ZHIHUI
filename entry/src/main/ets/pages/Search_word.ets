@@ -78,7 +78,6 @@ export default struct Search_word {
           .height(40)
           .layoutWeight(1)
           .maxLength(20)
-
           .backgroundColor('#F5F5F5')
           .placeholderColor(Color.Grey)
           .placeholderFont({ size: 14, weight: 400 })
@@ -135,12 +134,12 @@ export default struct Search_word {
             })
         }.width('100%').height(50).justifyContent(FlexAlign.SpaceBetween)
 
-      // 显示历史记录按钮
+      // 显示搜索记录
       if (this.history.length > 0) {
         Row({ space: 5 }) {
           ForEach(this.history,(label:string)=>{
             Button(label)
-              .fontSize(15)
+              .fontSize(18)
               .fontColor($r('app.color.lightest_primary_color'))
               .backgroundColor('#F5F5F5')
               .controlSize(ControlSize.SMALL)

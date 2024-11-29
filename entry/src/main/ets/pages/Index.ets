@@ -1,3 +1,4 @@
+import Collect_words from '../view/mine/Collect_words'
 import Course from './Course'
 import Dictionary from './Dictionary'
 import Home from './Home'
@@ -82,7 +83,12 @@ struct Index {
     else if (name === 'Search_word') {
       Search_word()
     }
+    else if (name === 'Collect_words') {
+      Collect_words()
+    }
   }
+
+
 
   //路由栈, (控制跳转）
   // @Provide navStack: NavPathStack = new NavPathStack()

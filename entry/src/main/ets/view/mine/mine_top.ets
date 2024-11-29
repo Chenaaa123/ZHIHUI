@@ -1,15 +1,17 @@
 import { CommonConstants } from '../../common/constants/CommonConstants'
 import globalState from '../../model/CollectWordCountModel'
+import mine_bottom from './mine_bottom';
 
 
 @Component
 export default  struct mine_top{
-
+  @StorageLink("persistedMapString") persistedMapString: Map<number, string> = new Map<number, string>([])
+  @Consume pageInfos: NavPathStack;
   build() {
+    NavDestination(){
     Column() {
       RelativeContainer() {
         /*  用户登录     */
-
         //头像
         Column(){
           Image($r('app.media.user'))
@@ -70,7 +72,7 @@ export default  struct mine_top{
           .offset({x:-20,y:-15})
           .width('30%')
 
-        Text('globalState.count')
+        Text(`${this.persistedMapString.size}`)
           .textAlign(TextAlign.Center)
           .fontSize(20)
           .fontColor($r('app.color.gray'))
@@ -80,6 +82,9 @@ export default  struct mine_top{
           })
           .offset({x:-20,y:20})
           .width('30%')
+          .onClick(() => {
+            this.pageInfos.pushPath({ name:'Collect_words'})
+          })
 
         // Divider().vertical(true).height(30).color($r('app.color.light_gray')).opacity(10).width(10).margin(10)
         Text('|')
@@ -105,5 +110,6 @@ export default  struct mine_top{
     .height('35%')
     .backgroundImage($r('app.media.mineBg'))
     .backgroundImageSize({ height: '75%', width: '100%' })//登录学习天数
+    }
   }
 }

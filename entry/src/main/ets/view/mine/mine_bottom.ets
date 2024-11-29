@@ -37,9 +37,10 @@ export default struct mine_bottom {
   ];
 
   @State egDivider: DividerTmp = new DividerTmp(1, 60, 10, '#ffe9f0f0')
-
+  @Consume pageInfos: NavPathStack;
 
   build() {
+    NavDestination(){
     Column() {
       List(){
       ForEach(
@@ -66,8 +67,8 @@ export default struct mine_bottom {
         })
       }
       .divider(this.egDivider)
-
     }.width('100%')
     .height('100%')
+  }
   }
 }
