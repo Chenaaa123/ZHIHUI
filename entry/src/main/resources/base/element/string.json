@@ -35,6 +35,10 @@
     {
       "name": "CourseTwo",
       "value": "课程二"
+    },
+    {
+      "name": "CAMERA",
+      "value": "本地传到相册"
     }
   ]
 }

@@ -3,6 +3,8 @@
     "pages/Index",
     "pages/TextPage",
     "pages/Login",
-    "pages/Register"
+    "pages/Register",
+    "view/welcome/Welcome"
+
   ]
 }

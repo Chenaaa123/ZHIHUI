@@ -26,6 +26,7 @@ class RouterInfo {
 //   return false;
 // }
 
+
 @Entry
 @Component
 struct Login {
@@ -40,7 +41,16 @@ struct Login {
         @State storedPassword : string = ''
         @StorageLink('current_name') current_name: number = 0
         @StorageLink('current_password') current_password: string = ''
-
+        // 设置全屏的方法
+        // onPageShow(): void {
+        //   window.getLastWindow(AppStorage.get('context'), (err, data) => {
+        //     if (err.code) {
+        //       console.error('Failed to get last window.Cause:' + JSON.stringify(err))
+        //       return
+        //     }
+        //     data.setFullScreen(true)
+        //   })
+        // }
         build() {
           Column({}) {
             // 第一行：文本和图片

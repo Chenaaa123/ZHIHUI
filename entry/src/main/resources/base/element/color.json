@@ -79,8 +79,10 @@
     {
       "name": "likeIcon2",
       "value": "#aeadb0"
+    },
+    {
+      "name": "welcome_color",
+      "value": "#ffa7cefa"
     }
-
-
   ]
 }

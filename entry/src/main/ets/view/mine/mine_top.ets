@@ -1,7 +1,8 @@
 import { CommonConstants } from '../../common/constants/CommonConstants'
-
 import mine_bottom from './mine_bottom';
-
+import { photoAccessHelper } from '@kit.MediaLibraryKit';
+import { image } from '@kit.ImageKit';
+import { fileIo as fs } from '@kit.CoreFileKit';
 PersistentStorage.persistProp('user_name', "请输入用户名");
 @Component
 export default  struct mine_top{
@@ -9,6 +10,37 @@ export default  struct mine_top{
   @StorageLink("persistedMapString") persistedMapString: Map<number, string> = new Map<number, string>([])
   @Consume pageInfos: NavPathStack;
   @StorageLink('user_name') user_name: string = '用户'
+
+  //相册获取头像
+  @State getAlbum: string = '显示相册中的图片';
+  @State pixel: image.PixelMap | undefined = undefined;
+  @State albumPath: string = '';
+  @State photoSize: number = 0;
+
+  async getPictureFromAlbum() {
+    // 拉起相册，选择图片
+    let PhotoSelectOptions = new photoAccessHelper.PhotoSelectOptions();
+    PhotoSelectOptions.MIMEType = photoAccessHelper.PhotoViewMIMETypes.IMAGE_TYPE;
+    PhotoSelectOptions.maxSelectNumber = 1;
+    let photoPicker = new photoAccessHelper.PhotoViewPicker();
+    let photoSelectResult: photoAccessHelper.PhotoSelectResult = await photoPicker.select(PhotoSelectOptions);
+    this.albumPath = photoSelectResult.photoUris[0];
+
+    // 读取图片为buffer
+    const file = fs.openSync(this.albumPath, fs.OpenMode.READ_ONLY);
+    this.photoSize = fs.statSync(file.fd).size;
+    console.info('Photo Size: ' + this.photoSize);
+    let buffer = new ArrayBuffer(this.photoSize);
+    fs.readSync(file.fd, buffer);
+    fs.closeSync(file);
+
+    // 解码成PixelMap
+    const imageSource = image.createImageSource(buffer);
+    console.log('imageSource: ' + JSON.stringify(imageSource));
+    this.pixel = await imageSource.createPixelMap({});
+  }
+  //
+
   build() {
     NavDestination(){
     Column() {
@@ -16,10 +48,14 @@ export default  struct mine_top{
         /*  用户登录     */
         //头像
         Column(){
-          Image($r('app.media.user'))
+          Image(this.pixel || $r('app.media.user'))
             .height(60)
             .width(60)
             .margin({top:80})
+            .borderRadius(50)
+            .onClick(() => {
+              this.getPictureFromAlbum();
+            })
 
           //用户名
           Row(){

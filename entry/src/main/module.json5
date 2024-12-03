@@ -3,7 +3,12 @@
     "requestPermissions": [
       {
         "name": "ohos.permission.INTERNET"
-      }
+      },
+
+      /* 本地到相册 */
+
+      /*  本地到相册  */
+
     ],
     "name": "entry",
     "type": "entry",

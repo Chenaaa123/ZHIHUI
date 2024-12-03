@@ -1,4 +1,8 @@
 import promptAction from '@ohos.promptAction';
+import { photoAccessHelper } from '@kit.MediaLibraryKit';
+import { image } from '@kit.ImageKit';
+import { fileIo as fs } from '@kit.CoreFileKit';
+PersistentStorage.persistProp('user_name', "请输入用户名");
 
 @Component
 export default struct Leave_word {
@@ -8,6 +12,36 @@ export default struct Leave_word {
   @State getContentLength: number = 0;
   @State getContentLength1: number = 0;
   @State BOnSt:promptAction.ShowToastOptions = {'message': '已超出内容最大限制.'}
+
+  //相册获取图片
+  @State getAlbum: string = '显示相册中的图片';
+  @State feedback: image.PixelMap | undefined = undefined;
+  @State albumPath: string = '';
+  @State photoSize: number = 0;
+
+  async getPictureFromAlbum() {
+    // 拉起相册，选择图片
+    let PhotoSelectOptions = new photoAccessHelper.PhotoSelectOptions();
+    PhotoSelectOptions.MIMEType = photoAccessHelper.PhotoViewMIMETypes.IMAGE_TYPE;
+    PhotoSelectOptions.maxSelectNumber = 1;
+    let photoPicker = new photoAccessHelper.PhotoViewPicker();
+    let photoSelectResult: photoAccessHelper.PhotoSelectResult = await photoPicker.select(PhotoSelectOptions);
+    this.albumPath = photoSelectResult.photoUris[0];
+
+    // 读取图片为buffer
+    const file = fs.openSync(this.albumPath, fs.OpenMode.READ_ONLY);
+    this.photoSize = fs.statSync(file.fd).size;
+    console.info('Photo Size: ' + this.photoSize);
+    let buffer = new ArrayBuffer(this.photoSize);
+    fs.readSync(file.fd, buffer);
+    fs.closeSync(file);
+
+    // 解码成PixelMap
+    const imageSource = image.createImageSource(buffer);
+    console.log('imageSource: ' + JSON.stringify(imageSource));
+    this.feedback = await imageSource.createPixelMap({});
+  }
+
   build() {
     NavDestination(){
       Column() {
@@ -132,7 +166,8 @@ export default struct Leave_word {
             .width(70)
             .fillColor($r('app.color.lightest_gray'))
             .onClick(() => {
-              this.suggestion.addImageSpan($r('app.media.app_icon'),{imageStyle:{
+              this.getPictureFromAlbum(); // this.feedback
+              this.suggestion.addImageSpan(this.feedback,{imageStyle:{
                 size: ["190px", "190px"]
               }})
               this.getContentLength1 = this.getContentLength1 + 1
