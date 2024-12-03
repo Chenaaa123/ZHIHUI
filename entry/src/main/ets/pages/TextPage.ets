@@ -1,120 +1,52 @@
-//
-// @CustomDialog
-// struct historyDialog {
-//   @Prop  history: string[]
-//   controller?: CustomDialogController
-//
-//   build() {
-//     Column() {
-//       Text('我是内容').fontSize(16).margin({ bottom: 10 })
-//       ForEach(this.history, (item:string) => {
-//         Text(item).fontSize(14).margin({ bottom: 5 })
-//       })
-//     }
-//   }
-// }
-//
-// @Entry
-// @Component
-// struct CustomDialogUser {
-//
-//   @State textValue: string = ''
-//   @State inputValue: string = 'click me'
-//   dialogController: CustomDialogController | null = new CustomDialogController({
-//     builder: historyDialog(),    //对话框构造器生成对话框内容
-//     autoCancel: true,         //点击对话框外关闭
-//     alignment: DialogAlignment.Center,
-//     offset: { dx: 0, dy: -20 },   //向上偏移20
-//     gridCount: 4,         //网格计数
-//     customStyle: false,     //自定义样式
-//     backgroundColor: 0xd9ffffff,
-//     cornerRadius: 20,
-//     width: '80%',
-//     height: '100%',
-//     borderWidth: 1,
-//     borderStyle: BorderStyle.Dashed,//使用borderStyle属性，需要和borderWidth属性一起使用
-//     borderColor: $r('app.color.primary_color'),//使用borderColor属性，需要和borderWidth属性一起使用
-//     shadow: ({ radius: 20, color: Color.Grey, offsetX: 50, offsetY: 0}),
-//   })
-//
-//   // 在自定义组件即将析构销毁时将dialogController置空
-//   aboutToDisappear() {
-//     this.dialogController = null // 将dialogController置空
-//   }
-//
-//   build() {
-//     Column() {
-//       Button(this.inputValue)
-//         .onClick(() => {
-//           if (this.dialogController != null) {
-//             this.dialogController.open()
-//           }
-//         }).backgroundColor(0x317aff)
-//     }.width('100%').margin({ top: 5 })
-//   }
-// }
-PersistentStorage.persistProp("persistedSet", new Set<number>([]));
+@Extend(Text) function fontsize_color(fontSize:number) {
+  .fontSize(fontSize)
+  .fontColor($r('app.color.light_gray'))
+}
 
 @Entry
 @Component
-struct PersistedSet {
-  @StorageLink("persistedSet") persistedSet: Set<number> = new Set<number>([]);
-
-  persistSet() {
-    this.persistedSet = new Set<number>([33, 1, 3]);
-  }
-
-  clearSet() {
-    this.persistedSet.clear();
-  }
+export default struct TextPage{
+  @State fontSizeValue: number = 14
 
   build() {
-    List() {
-      ListItem() {
-        Column() {
-          Text(`Persisted Set is `)
-            .margin(20)
-          ForEach(Array.from(this.persistedSet.entries()), (item: [number, string]) => {
-            Text(`${item[1]}`)
-          })
-
-          Button() {
-            Text('Persist Set')
-              .fontSize(25)
-              .fontWeight(FontWeight.Bold)
-              .fontColor(Color.White)
+    Column(){
+      //头部
+      Row(){
+        Image($r('app.media.app_icon')).width(45).height(45).margin({right:5})
+        Column(){
+          Text('指麾').margin({bottom:8,top:5})
+          Row(){
+            Text('官方信息').fontColor($r('app.color.primaryEst_color')).margin({right:5}).fontSize(14)
+            Text('12-25').fontsize_color(this.fontSizeValue)
           }
-          .type(ButtonType.Capsule)
-          .margin({
-            top: 20
-          })
-          .backgroundColor('#0D9FFB')
-          .width('60%')
-          .height('5%')
-          .onClick(() => {
-            this.persistSet();
-          })
+        }.alignItems(HorizontalAlign.Start).height(50)
+        Blank()
+        Image($r('app.media.three_point')).width(10).height(20)
+      }.width('100%').height(50).margin({bottom:10})
 
-          Button() {
-            Text('Persist Clear')
-              .fontSize(25)
-              .fontWeight(FontWeight.Bold)
-              .fontColor(Color.White)
-          }
-          .type(ButtonType.Capsule)
-          .margin({
-            top: 20
-          })
-          .backgroundColor('#0D9FFB')
-          .width('60%')
-          .height('5%')
-          .onClick(() => {
-            this.clearSet();
-          })
+      //content内容
+      Text('标题')
+      Text('AAAAAAAAAAAAAAAAAAAAAAAAAAAA').margin({top:10,bottom:10}).width('100%').height('auto')
+      Image($r('app.media.course_slideshow2')).width('auto').height(200).borderRadius(5)
 
-        }
-        .width('100%')
-      }
-    }
+      //评论会话
+      Row(){
+        Image($r('app.media.information')).width(20).height(20).fillColor($r('app.color.light_gray')).margin({right:5})
+        Text('指麾').fontsize_color(this.fontSizeValue)
+        Blank()
+        Text('10万人正在聊').fontsize_color(this.fontSizeValue)
+        Image($r('app.media.right')).width(20).height(10).fillColor($r('app.color.light_gray'))
+      }.backgroundColor($r('app.color.lightest_gray')).width('100%').height(40).borderRadius(5).padding(5).margin({top:10,bottom:10})
+      //标签与点赞
+      Row(){
+        Text('点赞十万').fontColor($r('app.color.likeIcon1')).backgroundColor($r('app.color.likeIcon1Bg')).padding(2).margin({right:10})
+        Text('最新发布').fontColor($r('app.color.likeIcon2')).backgroundColor($r('app.color.likeIcon2Bg')).padding(2)
+        Blank()
+        Image($r('app.media.comment')).width(18).height(18)
+        Text('888').fontsize_color(this.fontSizeValue).margin({left:5,right:5})
+        Image($r('app.media.like')).width(18).height(18).margin({left:5,right:5})
+        Text('12万').fontsize_color(this.fontSizeValue)
+      }.width('100%')
+    }.alignItems(HorizontalAlign.Start).margin({right:15,left:15})
   }
 }

@@ -1,4 +1,14 @@
+import course_video from '../view/Course/course_video'
+import recommendNews from '../view/home/recommend/recommendNews'
+import account_info from '../view/mine/account/account_info'
+import account_management from '../view/mine/account/account_management'
+import signature from '../view/mine/account/signature'
+import user_name from '../view/mine/account/user_name'
 import Collect_words from '../view/mine/Collect_words'
+import about_us from '../view/mine/setting/about_us'
+import contact_us from '../view/mine/setting/contact_us'
+import setting_info from '../view/mine/setting/setting_info'
+import study_record from '../view/mine/study_record'
 import Course from './Course'
 import Dictionary from './Dictionary'
 import Home from './Home'
@@ -69,7 +79,7 @@ struct Index {
 
   // 路由容器
   @Builder
-  navDestination(name: string, param :string) {
+  navDestination(name: string) {
     if (name === 'Word') {
       Word()
     } else if (name === 'Dictionary') {
@@ -77,7 +87,8 @@ struct Index {
     }
     else if (name === 'Course') {
       Course()
-    }else if (name === 'Leave_word') {
+    }
+    else if (name === 'Leave_word') {
       Leave_word()
    }
     else if (name === 'Search_word') {
@@ -85,6 +96,36 @@ struct Index {
     }
     else if (name === 'Collect_words') {
       Collect_words()
+    }
+    else if (name === 'course_video'){
+      course_video()
+    }
+    else if (name === 'recommendNews'){
+      recommendNews()
+    }
+    else if (name === 'study_record') {
+      study_record()
+    }
+    else if (name === 'account_info') {
+      account_info()
+    }
+    else if (name === 'signature') {
+      signature()
+    }
+    else if (name === 'user_name') {
+      user_name()
+    }
+    else if (name === 'account_management') {
+      account_management()
+    }
+    else if (name === 'setting_info') {
+      setting_info()
+    }
+    else if (name === 'about_us') {
+      about_us()
+    }
+    else if (name === 'contact_us') {
+      contact_us()
     }
   }
 
@@ -104,6 +145,7 @@ struct Index {
     }
     .height('100%')
     .width('100%')
+    .backgroundColor($r('app.color.page_background'))
     .toolbarConfiguration(this.tabBarBuilder) // 设置自定义tabBar
     .navDestination(this.navDestination) // 设置路由容器
     // .title(this.titleBuilder, {

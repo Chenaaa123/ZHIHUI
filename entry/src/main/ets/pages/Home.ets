@@ -1,10 +1,12 @@
 //首页主布局
 import { CommonConstants } from '../common/constants/CommonConstants'
 import ItemDictionaryModel from '../model/ItemDictionaryModel'
-import home_bottom_componentOne from '../view/home/home_bottom_componentOne'
-import home_bottom_componentThree from '../view/home/home_bottom_componentThree'
-import home_bottom_componentTwo from '../view/home/home_bottom_componentTwo'
-import DictionaryItem from '../viewmodel/DictionaryItem'
+import home_bottom_componentOne from '../view/home/recommend/home_bottom_recommend'
+import home_bottom_componentThree from '../view/home/video/home_bottom_video'
+import home_bottom_componentTwo from '../view/home/home_bottom_attention'
+import home_bottom_recommend from '../view/home/recommend/home_bottom_recommend'
+import home_bottom_video from '../view/home/video/home_bottom_video'
+import home_bottom_attention from '../view/home/home_bottom_attention'
 
 
 @Builder export function HomeBuilder(name: string, param: Object) {
@@ -12,7 +14,7 @@ import DictionaryItem from '../viewmodel/DictionaryItem'
 }
 @Component
 export default struct Home{
-    @Prop activeName: string = '首页'
+
     @Consume pageInfos: NavPathStack
 
 
@@ -23,7 +25,7 @@ export default struct Home{
         .backgroundColor($r('app.color.secondary_color'))
         .controlSize(ControlSize.SMALL)
         .onClick(() => {
-          // const label = '高兴'; // 替换为实际的标签值
+
           const wordInfo = ItemDictionaryModel.findByWordName(label);
           if (wordInfo!=null) {
             // 将词汇信息传递给跳转页面
@@ -34,7 +36,7 @@ export default struct Home{
         })
   }
     /*          bottom菜单栏构造     */
-    @Builder MuneBuilder(image:string,label:string,pageName:string){
+    @Builder MenuBuilder(image:string,label:string,pageName:string){
       Column(){
         Image($r(image))
           .width('auto')
@@ -94,10 +96,10 @@ export default struct Home{
         //按钮
 
         Row({ space: CommonConstants.SPACE_6 }) {
-              this.buttonBuilder('你好')
+              this.buttonBuilder('感谢')
               this.buttonBuilder('高兴')
-              this.buttonBuilder('安排')
-              this.buttonBuilder('早上好')
+              this.buttonBuilder('抱歉')
+              this.buttonBuilder('我们')
         }
         .height(23)
         .margin({bottom:4})
@@ -113,9 +115,9 @@ export default struct Home{
 
         //功能栏
         Row({space:CommonConstants.SPACE_12}){
-          this.MuneBuilder('app.media.dictionary', '词典','Dictionary')
-          this.MuneBuilder('app.media.class', '课程','Course')
-          this.MuneBuilder('app.media.forum', '留言','Leave_word')
+          this.MenuBuilder('app.media.dictionary', '词典','Dictionary')
+          this.MenuBuilder('app.media.class', '课程','Course')
+          this.MenuBuilder('app.media.forum', '留言','Leave_word')
         }
         .backgroundColor('#FFFF')
         .margin({top:15})
@@ -140,27 +142,26 @@ export default struct Home{
         .margin({top:20})
 
 
-
       /*   底部    */
       Column() {
         Tabs(){
           TabContent() {
-            home_bottom_componentOne()
+            home_bottom_recommend()
           }
           .tabBar(this.tabBuilder('推荐', 0, $r('app.media.rectangle')))
           TabContent() {
-            home_bottom_componentTwo()
+            home_bottom_attention()
           }
           .tabBar(this.tabBuilder('关注', 1, $r('app.media.rectangle')))
           TabContent() {
-            home_bottom_componentThree()
+            home_bottom_video()
           }
           .tabBar(this.tabBuilder('视频', 2, $r('app.media.rectangle')))
          }.onChange(index =>this.currentIndex = index)
       }   //bottom样式
         .width('100%')
         .position({top:330})
-        .height(300)
+        .height(400)
 
       }  //整体样式
       .width('100%')

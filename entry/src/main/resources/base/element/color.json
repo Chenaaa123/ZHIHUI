@@ -29,6 +29,10 @@
       "value": "#0275fa"
     },
     {
+      "name": "primaryEst_color",
+      "value": "#FF4BA2EF"
+    },
+    {
       "name": "light_primary_color",
       "value": "#01b0e9"
     },
@@ -59,6 +63,22 @@
     {
       "name": "warnIcon",
       "value": "#FFFF0000"
+    },
+    {
+      "name": "likeIcon1Bg",
+      "value": "#ffebd8"
+    },
+    {
+      "name": "likeIcon1",
+      "value": "#f6d0a2"
+    },
+    {
+      "name": "likeIcon2Bg",
+      "value": "#ebebed"
+    },
+    {
+      "name": "likeIcon2",
+      "value": "#aeadb0"
     }
 
 

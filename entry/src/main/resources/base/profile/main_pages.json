@@ -1,6 +1,8 @@
 {
   "src": [
     "pages/Index",
-    "pages/TextPage"
+    "pages/TextPage",
+    "pages/Login",
+    "pages/Register"
   ]
 }

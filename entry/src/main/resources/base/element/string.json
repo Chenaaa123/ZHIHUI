@@ -10,7 +10,7 @@
     },
     {
       "name": "EntryAbility_label",
-      "value": "label"
+      "value": "指麾"
     },
     {
       "name": "tab_index",
@@ -27,6 +27,14 @@
     {
       "name": "Local_sign_language",
       "value": "地方手语"
+    },
+    {
+      "name": "CourseOne",
+      "value": "课程一"
+    },
+    {
+      "name": "CourseTwo",
+      "value": "课程二"
     }
   ]
 }

@@ -1,12 +1,14 @@
 import { CommonConstants } from '../../common/constants/CommonConstants'
-import globalState from '../../model/CollectWordCountModel'
+
 import mine_bottom from './mine_bottom';
 
-
+PersistentStorage.persistProp('user_name', "请输入用户名");
 @Component
 export default  struct mine_top{
+
   @StorageLink("persistedMapString") persistedMapString: Map<number, string> = new Map<number, string>([])
   @Consume pageInfos: NavPathStack;
+  @StorageLink('user_name') user_name: string = '用户'
   build() {
     NavDestination(){
     Column() {
@@ -20,15 +22,20 @@ export default  struct mine_top{
             .margin({top:80})
 
           //用户名
-          Text('未登录')
-            .backgroundColor(Color.White)
-            .width('80')
-            .height(25)
-            .fontSize(16)
-            .margin({top:10})
-            .textAlign(TextAlign.Center)
-            .fontColor($r('app.color.light_gray'))
-            .borderRadius(5) //设置圆角
+          Row(){
+            TextInput({placeholder: this.user_name})
+              .backgroundColor(Color.White)
+              .width('auto')
+              .height(35)
+              .fontSize(16)
+              .margin({ top: 10 })
+              .textAlign(TextAlign.Center)
+              .fontColor($r('app.color.light_gray'))
+              .borderRadius(5)//设置圆角
+              .onChange((value: string) => {
+                this.user_name = value;
+              })
+          }
         }
         .alignRules({
           middle: { anchor: '__container__', align: HorizontalAlign.Center },
@@ -108,8 +115,13 @@ export default  struct mine_top{
 
     }.width('100%')
     .height('35%')
+    .backgroundColor(Color.White)
     .backgroundImage($r('app.media.mineBg'))
     .backgroundImageSize({ height: '75%', width: '100%' })//登录学习天数
-    }
+
+      Column(){
+      mine_bottom()
+      }.backgroundColor(Color.White)
+    }.backgroundColor($r('app.color.page_background'))
   }
 }

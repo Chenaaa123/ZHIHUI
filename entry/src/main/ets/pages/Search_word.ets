@@ -77,7 +77,7 @@ export default struct Search_word {
           .width('80%')
           .height(40)
           .layoutWeight(1)
-          .maxLength(20)
+          .maxLength(20)               // 注意：maxLength 属性在某些设备上可能不受支持，
           .backgroundColor('#F5F5F5')
           .placeholderColor(Color.Grey)
           .placeholderFont({ size: 14, weight: 400 })
