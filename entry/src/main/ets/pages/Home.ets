@@ -161,7 +161,7 @@ export default struct Home{
       }   //bottom样式
         .width('100%')
         .position({top:330})
-        .height(400)
+        .height(370)
 
       }  //整体样式
       .width('100%')

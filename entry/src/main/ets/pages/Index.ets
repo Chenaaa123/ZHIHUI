@@ -2,6 +2,7 @@ import course_video from '../view/course/course_video'
 import recommendNews from '../view/home/recommend/recommendNews'
 import account_info from '../view/mine/account/account_info'
 import account_management from '../view/mine/account/account_management'
+import edit from '../view/mine/account/edit'
 import signature from '../view/mine/account/signature'
 import user_name from '../view/mine/account/user_name'
 import Collect_words from '../view/mine/mine_top/Collect_words'
@@ -126,6 +127,9 @@ struct Index {
     }
     else if (name === 'contact_us') {
       contact_us()
+    }
+    else if (name === 'edit') {
+      edit()
     }
   }
 

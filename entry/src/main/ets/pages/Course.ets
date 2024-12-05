@@ -47,9 +47,9 @@ export default struct Course {
       ForEach(items,(item:VideoItem)=>{
         ListItem(){
           Column() {
-            Row({ space: 6 }) {
-              Image(item.course_image).width(50)
-              Text(item.videoName).fontSize(18).fontWeight(300)
+            Row() {
+              Image(item.course_image).width(50).margin({left:10})
+              Text(item.videoName).fontSize(18).fontWeight(300).textAlign(TextAlign.Start)
               Blank()
               // Text(item.detail)
               Image($r('app.media.right'))

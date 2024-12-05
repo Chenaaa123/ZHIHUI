@@ -5,8 +5,10 @@ PersistentStorage.persistProp("account_password", new Map<number, string>([]));
 @Entry
 @Component
 struct Register {
+  @State text_again: string = ''
+  /*controller: TextInputController = new TextInputController();*/
   @StorageLink("account_password") account_password: Map<number, string> = new Map<number, string>([]);
-  @State account_user : number = NaN
+  @State account_user : number = 0
   @State password_user : string = ''
   @State password_again : string =''
   //设置全屏的方法
@@ -19,21 +21,23 @@ struct Register {
       data.setFullScreen(true);
     });
   }
-  @State username: string = ''; @State password: string = '';
+  @State account_user_name: string = '';
+
+  // @State password: string = '';
   @State confirmPassword: string = '';
   @State showConfirmPassword: boolean = false; // 新增状态，用于控制确认密码输入框的显示
 
 
   // 注册方法
-  async register() {
-    if (this.username.trim() === '' || this.password.trim() === '') {
-      alert('用户名或密码不能为空！');
-      return;
-    }
-    // 保存用户信息到存储
-    // 注册成功后跳转到登录页面
-    router.replaceUrl({ url: 'pages/Login' });
-  }
+  /*  async register() {
+      if (this.username.trim() === '' || this.password.trim() === '') {
+        alert('用户名或密码不能为空！');
+        return;
+      }
+      // 保存用户信息到存储
+      // 注册成功后跳转到登录页面
+      router.replaceUrl({ url: 'pages/Login' });
+    }*/
 
   onPasswordInputClick(): void { this.showConfirmPassword = true;}
   onHideConfirmPassword(): void { this.showConfirmPassword = false;}
@@ -53,19 +57,46 @@ struct Register {
       .height(250)
 
       Column() {
-        Row() {
-          TextInput({
-            placeholder: '请输入注册账号/邮箱'
-          })
+
+
+        Stack(){
+          TextInput({ placeholder: '请输入注册账号/邮箱', text: this.text_again,
+           /* controller:this.controller*/})
             .width(250)
             .backgroundColor('#ffffffff')
             .type(InputType.Normal)
-            .onChange((Value) => {
-              this.account_user = parseInt(Value)
+            .onChange((value) => {
+              this.text_again = value
+              this.account_user = parseInt(value)
+              this.account_user_name = value
             })
+            .zIndex(-1)
+          if(this.text_again != ''){
+            Image($r('app.media.input_delete'))
+              .height('auto')
+              .fillColor(Color.Gray)
+              .onClick(() => {
+                this.text_again = '';
+              })
+              .width('5%')
+              .margin({left: 200})
+          }
         }
-        .justifyContent(FlexAlign.Center)
         .width('100%')
+        // Row() {
+        //   TextInput({
+        //     placeholder: '请输入注册账号/邮箱'
+        //   })
+        //     .width(250)
+        //     .backgroundColor('#ffffffff')
+        //     .type(InputType.Normal)
+        //     .onChange((value) => {
+        //       this.account_user = parseInt(value)
+        //       this.account_user_name = value
+        //     })
+        // }
+        // .justifyContent(FlexAlign.Center)
+        // .width('100%')
         Row() {
           TextInput({
             placeholder: '请输入注册账号密码',
@@ -77,6 +108,7 @@ struct Register {
             .onClick(() => this.onPasswordInputClick())
             .onChange((Value) => {
               this.password_user = Value
+
             })
         }
         .width('100%')
@@ -103,27 +135,58 @@ struct Register {
           .onMouse((event: MouseEvent) => {
             event.stopPropagation(); // 在Button的onMouse事件中设置阻止冒泡
           })
-          }
+        }
         Flex({ alignItems: ItemAlign.Center, justifyContent: FlexAlign.Center }) {
           Button('注册', { type: ButtonType.Normal, stateEffect: true })
             .borderRadius(15)
             .backgroundColor(0x317aff)
             .width(100)
+              //  this.password_user.trim() != '' && this.password_again.trim() != ''
             .onClick(() => {
-              if (this.password_user === this.password_again && this.password_again != null) {
-                this.account_password.set(this.account_user,this.password_user)
-                promptAction.showToast({
-                  message: '恭喜您注册成功',
-                  duration: 5000, // 持续时间为5秒
-              })
+              if ( this.password_user.trim() != '' && this.password_again.trim() != '') {
+                if(this.password_user == this.password_again  ){
+                  if(this.account_user_name.trim() !='') {
+                    this.account_password.set(this.account_user,this.password_user)
+                    promptAction.showToast({
+                      message: '恭喜您注册成功',
+                      duration: 5000, // 持续时间为5秒
+                    })
+                    router.replaceUrl({
+                      url: 'pages/Login',
+                    },
+                      router.RouterMode.Single,
+                      err => {
+                        if(err){
+                          console.log(`路由失败， errCode: ${err.code} errMsg: ${err.message}`);
+                        }
+                      }
+                    )
+                  }
+                  else {
+                    promptAction.showToast({
+                      message: '账号不能为空',
+                      textColor: Color.Red,
+                      duration: 5000, // 持续时间为5秒
+                    })
+                  }
+                }
+                else {
+                  promptAction.showToast({
+                    message: '您两次输入的密码不一致,请重新输入!',
+                    textColor: Color.Red,
+                    duration: 5000, // 持续时间为5秒
+
+                  })
+                }
+
               }
-          else{
-            promptAction.showToast({
-              message: '您两次输入的密码不一致,请重新输入!',
-             textColor: Color.Red ,
-              duration: 5000, // 持续时间为5秒
-            });
-          }
+              else{
+                promptAction.showToast({
+                  message: '您的密码不能为空',
+                  textColor: Color.Red ,
+                  duration: 5000, // 持续时间为5秒
+                });
+              }
             })
         }
         .width('100%')
@@ -136,7 +199,7 @@ struct Register {
             .fontSize(15)
             .onClick(() => {
               //router跳转
-              router.pushUrl({
+              router.replaceUrl({
                 url: 'pages/Login',
               },
                 router.RouterMode.Single,
@@ -150,9 +213,7 @@ struct Register {
         }
         .width(250)
         .margin({ top: 20 })
-
-
-       }
+      }
       .height('100')
     }
     .onClick(() => this.onHideConfirmPassword())

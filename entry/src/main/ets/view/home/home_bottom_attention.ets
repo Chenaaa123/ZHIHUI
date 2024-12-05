@@ -55,6 +55,6 @@ export default struct home_bottom_attention{
             }
           })
         }.scrollBar(BarState.Auto).width('100%')
-      }.padding(10).borderRadius(15)
+      }.padding({left:10,right:10}).borderRadius(10).height('auto')
     }
   }
