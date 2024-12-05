@@ -24,7 +24,7 @@ export default struct setting_info {
       .width('90%')
       .height(40)
       .margin({ top: 10 })
-      .backgroundColor($r('app.color.lightest_primary_color'))
+      .backgroundColor($r('app.color.page_background'))
       .borderRadius(10)
 
     }
@@ -71,12 +71,12 @@ export default struct setting_info {
             duration: 5000, // 持续时间为5秒
           });
         })
-        .backgroundColor($r('app.color.lightest_primary_color'))
+        .backgroundColor($r('app.color.page_background'))
 
         Button('退出登录')
           .width('90%')
           .height(50)
-          .margin({ top: 420 })
+          .margin({ top: 480 })
           .borderRadius(5)
           .onClick(() => {
             router.replaceUrl({
@@ -95,6 +95,6 @@ export default struct setting_info {
       .backgroundColor(Color.White)
     }
     .title('设置')
-    .backgroundColor($r('app.color.lightest_primary_color'))
+    .backgroundColor($r('app.color.page_background'))
   }
 }

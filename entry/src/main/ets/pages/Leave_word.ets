@@ -63,9 +63,9 @@ export default struct Leave_word {
 
         Column() { //建议
           Column() {
-            Text('截图反馈')
+            Text('截图反馈&词汇投稿')
               .fontSize(18)
-            Text('您认为哪些方面需要改进请给出图示建议')
+            Text('您认为哪些方面需要改进&请上传遗漏词汇图示')
               .fontSize(15)
               .margin({ bottom: 20, top: 5 })
               .fontColor($r('app.color.gray'))
