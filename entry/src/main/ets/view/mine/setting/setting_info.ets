@@ -1,6 +1,5 @@
 import { promptAction, router } from "@kit.ArkUI"
 
-
 @Component
 export default struct setting_info {
   @Consume pageInfos: NavPathStack;
@@ -28,14 +27,6 @@ export default struct setting_info {
       .backgroundColor($r('app.color.lightest_primary_color'))
       .borderRadius(10)
 
-      // .onClick(() => {
-      //   this.pageInfos.pushPath({ name: '' })
-      // })
-      // Divider()
-      //   .color($r('app.color.lightest_gray'))
-      //   .strokeWidth(2)//粗细
-      //   .width('86%')
-      //   // .margin({ top: 10, bottom: 10 })
     }
   }
 
@@ -57,7 +48,6 @@ export default struct setting_info {
         })
 
         Row() {
-          // this.SettingMenu('检查版本更新',$r('app.media.version_details'))
           Image($r('app.media.version_details'))
             .width(20).height(20)
             .margin({ left: 10, right: 15 })
@@ -86,7 +76,7 @@ export default struct setting_info {
         Button('退出登录')
           .width('90%')
           .height(50)
-          .margin({top:420})
+          .margin({ top: 420 })
           .borderRadius(5)
           .onClick(() => {
             router.replaceUrl({
@@ -99,60 +89,6 @@ export default struct setting_info {
                 }
               })
           })
-
-        // Row() {
-        //   Text("关于我们")
-        //     .width(100)
-        //     .height(40)
-        //     .margin({ left: 25 })
-        //   Blank()
-        //   Image($r('app.media.right'))
-        //     .size({ width: 15 })
-        //
-        // }.width('93%')
-        // .height(40)
-        // .margin({ top: 10 })
-        // .onClick(() => {
-        //   this.pageInfos.pushPath({ name: '' })
-        // })
-        // Divider()
-        //   .color(Color.White)
-        //   .strokeWidth(5)//粗细
-        //   .width('90%')
-        //   .margin({ left: 18, top: 10, bottom: 10 })
-
-        //   Row() {
-        //     Text("联系我们")
-        //       .width(100)
-        //       .height(40)
-        //       .margin({ left: 25 })
-        //     Blank()
-        //     Image($r('app.media.right'))
-        //       .size({ width: 15 })
-        //
-        //   }.width('93%')
-        //   .height(40)
-        //   .margin({ top: 10 })
-        //   .onClick(() => {
-        //     this.pageInfos.pushPath({ name: '' })
-        //   })
-        //
-        //   Row() {
-        //     Text("检查版本更新")
-        //       .width(100)
-        //       .height(40)
-        //       .margin({ left: 12 })
-        //     Blank()
-        //     // Image($r('app.media.right'))
-        //     //   .size({ width: 15 })
-        //     //   .margin({ right: 12 })
-        //   }
-        //   .width('93%')
-        //   .height(40)
-        //   .margin({ top: 10 })
-        //   .onClick(() => {
-        //     // this.pageInfos.pushPath({ name: set.setting_name })
-        //   })
       }
       .width('100%') // 设置Flex的宽度为100%，以填充Column
       .height('100%')

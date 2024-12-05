@@ -1,7 +1,6 @@
 import router from '@ohos.router';
 import { promptAction, window } from '@kit.ArkUI'
-import { url } from '@kit.ArkTS';
-import { text } from '@kit.ArkGraphics2D';
+
 
 class RouterInfo {
   //页面路径
@@ -15,33 +14,15 @@ class RouterInfo {
   }
 }
 
-// // 验证账号密码的函数
-// function verifyAccountPassword(accountId: number, password: string, ): boolean {
-//   // 检查账号是否存在并且密码匹配
-//   if (account_password.has(accountId)) {
-//     const storedPassword = account_password.get(accountId);
-//     return storedPassword === password;
-//   }
-//   // 如果账号不存在，返回false
-//   return false;
-// }
-
-
 @Entry
 @Component
 struct Login {
-
   @State text: string = '';
-  /*controller: TextInputController = new TextInputController();*/
-
   @State imageWidth: number = 30
-  private routers: RouterInfo[] = [
-    new RouterInfo('pages/Register', '注册页面')
-  ]
   @StorageLink("account_password") account_password: Map<number, string> = new Map<number, string>([]);
-  @State account_user : number = NaN
-  @State password_user : string = ''
-  @State storedPassword : string = ''
+  @State account_user: number = NaN
+  @State password_user: string = ''
+  @State storedPassword: string = ''
   @StorageLink('current_name') current_name: number = 0
   @StorageLink('current_password') current_password: string = ''
 
@@ -59,10 +40,12 @@ struct Login {
 
       // 第二行：第一个文本输入框
       Column() {
-        // Flex({ direction: FlexDirection.Column, justifyContent: FlexAlign.Center, alignItems: ItemAlign.Center })
-        Stack(){
-          TextInput({ placeholder: '请输入登录账号/邮箱', text: this.text,
-           /* controller:this.controller*/})
+
+        Stack() {
+          TextInput({
+            placeholder: '请输入登录账号/邮箱', text: this.text,
+            /* controller:this.controller*/
+          })
             .width(250)
             .backgroundColor('#ffffffff')
             .type(InputType.Normal)
@@ -72,7 +55,7 @@ struct Login {
               this.storedPassword = this.account_password.get(this.account_user) as string
             })
             .zIndex(-1)
-          if(this.text != ''){
+          if (this.text != '') {
             Image($r('app.media.input_delete'))
               .height('auto')
               .fillColor(Color.Gray)
@@ -81,12 +64,13 @@ struct Login {
               })
 
               .width('5%')
-              .margin({left: 200})
+              .margin({ left: 200 })
           }
         }.width('100%')
+
         // 第三行：第二个文本输入框
         Row() {
-          TextInput({ placeholder: '请输入账号/邮箱密码'})
+          TextInput({ placeholder: '请输入账号/邮箱密码' })
             .width(250)
             .width(250)
             .backgroundColor('#ffffffff')
@@ -106,7 +90,7 @@ struct Login {
             .backgroundColor(0x317aff)
             .width(100)
             .onClick(() => {
-              if(this.account_user == null || this.storedPassword == null){
+              if (this.account_user == null || this.storedPassword == null) {
                 promptAction.showToast({
                   message: '您输入的账号或密码不存在！',
                   duration: 3000, // 持续时间为3秒
@@ -114,7 +98,7 @@ struct Login {
                 })
               }
               if (this.account_password.has(this.account_user)) {
-                if( this.password_user === this.storedPassword ) {
+                if (this.password_user === this.storedPassword) {
                   this.current_name = this.account_user
                   this.current_password = this.password_user
                   promptAction.showToast({
@@ -127,13 +111,12 @@ struct Login {
                   },
                     router.RouterMode.Single,
                     err => {
-                      if(err){
+                      if (err) {
                         console.log(`路由失败， errCode: ${err.code} errMsg: ${err.message}`);
                       }
                     }
                   )
-                }
-                else{
+                } else {
                   promptAction.showToast({
                     message: '您输入的账号或密码有误，请重新输入！',
                     duration: 3000, // 持续时间为3秒
@@ -141,21 +124,6 @@ struct Login {
                   })
                 }
               }
-              //router跳转
-              // if(this.account_password[0].has(this.account_user as number ,this.password_user as string))
-              //   console.log('登录成功');
-              // else  console.log('登录失败');
-              // this.account_password.set(this.account_user,this.password_user)
-              // router.pushUrl({
-              //   url: 'pages/Index',
-              // },
-              //   router.RouterMode.Single,
-              //   err => {
-              //     if(err){
-              //       console.log(`路由失败， errCode: ${err.code} errMsg: ${err.message}`);
-              //     }
-              //   }
-              // )
             })
         }
         .width('100%')
@@ -176,7 +144,7 @@ struct Login {
               },
                 router.RouterMode.Single,
                 err => {
-                  if(err){
+                  if (err) {
                     console.log(`路由失败， errCode: ${err.code} errMsg: ${err.message}`);
                   }
                 }

@@ -1,8 +1,10 @@
 PersistentStorage.persistProp('user_name', "请编辑用户名");
+
 @Component
 export default struct user_name {
   @StorageLink('user_name') user_name: string = ''
   @Consume pageInfos: NavPathStack;
+
   build() {
     NavDestination() {
       RelativeContainer() {
@@ -14,9 +16,8 @@ export default struct user_name {
           .fontColor('#182431')
           .borderRadius(5)
           .alignRules({
-            middle : {anchor: '__container__',align: HorizontalAlign.Center}
+            middle: { anchor: '__container__', align: HorizontalAlign.Center }
           })
-
           .backgroundColor('#ffc4d8f6')
           .onChange((value: string) => {
             this.user_name = value

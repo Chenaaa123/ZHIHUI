@@ -1,5 +1,7 @@
 import { AddPic } from '../view/leave_word/AddPic';
 import { ImageInfo } from '../model/ContentInfo';
+import { promptAction } from '@kit.ArkUI';
+
 PersistentStorage.persistProp('user_name', "请输入用户名");
 
 @Component
@@ -16,12 +18,12 @@ export default struct Leave_word {
   }
 
   build() {
-    NavDestination(){
+    NavDestination() {
       Column() {
-        Column(){                //使用感受
+        Column() { //使用感受
           Text('使用感受')
             .fontSize(18)
-            .margin({top:15,left:15})
+            .margin({ top: 15, left: 15 })
           RichEditor({ controller: this.editorController })
             .placeholder("您整体体验下来起来感觉如何，可以具体说说是哪些方面", {
               fontColor: Color.Gray,
@@ -35,8 +37,8 @@ export default struct Leave_word {
             .width('100%')
             .height('75%')
             .alignRules({
-              center: {anchor:'__container__',align:VerticalAlign.Center},
-              middle: {anchor:'__container__',align:HorizontalAlign.Center}
+              center: { anchor: '__container__', align: VerticalAlign.Center },
+              middle: { anchor: '__container__', align: HorizontalAlign.Center }
             })
 
 
@@ -50,12 +52,13 @@ export default struct Leave_word {
               this.editorController.deleteSpans()
               this.getContentLength = 0
             })
-            .offset({x:230,y:-30})
-        }.height(230)
+            .offset({ x: 230, y: -30 })
+        }
+        .height(230)
         .width('85%')
         .borderRadius(10)
         .backgroundColor(Color.White)
-        .margin({top:25})
+        .margin({ top: 25 })
         .alignItems(HorizontalAlign.Start)
 
         Column() { //建议
@@ -64,9 +67,9 @@ export default struct Leave_word {
               .fontSize(18)
             Text('您认为哪些方面需要改进请给出图示建议')
               .fontSize(15)
-              .margin({bottom:20,top:5})
+              .margin({ bottom: 20, top: 5 })
               .fontColor($r('app.color.gray'))
-          }.alignItems(HorizontalAlign.Start).margin({top:15,left:15})
+          }.alignItems(HorizontalAlign.Start).margin({ top: 15, left: 15 })
 
           Row() {
             AddPic()
@@ -81,9 +84,10 @@ export default struct Leave_word {
             .onClick(() => {
               this.clearImageArray()
             })
-            .offset({x:230,y:10})
+            .offset({ x: 230, y: 10 })
 
-        }.margin({top:25})
+        }
+        .margin({ top: 25 })
         .width('85%')
         .backgroundColor(Color.White)
         .height('45%')
@@ -93,15 +97,20 @@ export default struct Leave_word {
 
         Button('点击提交')
           .fontSize(20)
-          .offset({y:10})
+          .offset({ y: 10 })
+          .onClick(() => {
+            promptAction.showToast({
+              message: '该功能正在调试，敬请期待~',
+              duration: 3000, // 持续时间为3秒
+            })
+          })
           .width("85%")
-
-      }.width('100%')
+      }
+      .width('100%')
       .height('100%')
       .backgroundColor($r('app.color.page_background'))
     }.title('留言')
   }
-
 }
 
 

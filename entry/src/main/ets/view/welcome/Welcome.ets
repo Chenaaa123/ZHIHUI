@@ -15,10 +15,6 @@ struct Welcome {
   })
 
   aboutToAppear(): void {
-    //1.加载首选项
-    //2.判断是否同意
-    //2.1.同意，跳转首选项
-    //2.2.不同意，弹窗
     if (this.welcome_approve == 0) {
       this.agree.open()
     } else {
@@ -37,9 +33,7 @@ struct Welcome {
   }
 
   onConfirm() {
-    //1.保存首选项
 
-    //2.跳转到首页
     this.jumpToLogin()
   }
 

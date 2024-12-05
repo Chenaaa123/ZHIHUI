@@ -1,7 +1,5 @@
-import { StartOptions } from "@kit.AbilityKit";
-
-
-@Builder function Middle(email: string, phone: number) {
+@Builder
+function Middle(email: string, phone: number) {
   Column() {
     Row() {
       Text('电子邮件：' + email)
@@ -20,7 +18,6 @@ import { StartOptions } from "@kit.AbilityKit";
 
 }
 
-
 class Title { //头部
   title_name: string
   email: string
@@ -35,7 +32,6 @@ class Title { //头部
 
 @Component
 export default struct contact_us {
-//  @Consume pageInfos: NavPathStack;
   private contacts: Array<Title> = [
     new Title('广告投放合作：', 'ad@zhihui.com', 18322871614),
     new Title('市场推广、品牌合作：', 'branding@zhihui.com', 15879283851),
@@ -61,7 +57,7 @@ export default struct contact_us {
           List() {
             ForEach(this.contacts, (contact: Title) => {
               ListItem() {
-                Column(){
+                Column() {
                   Row({ space: 10 }) {
                     Text(contact.title_name)
                       .fontSize(18)
@@ -70,17 +66,18 @@ export default struct contact_us {
                   .width('100%')
                   .height(20)
                   .justifyContent(FlexAlign.Start)
-                  .margin({ top: 10, left: 40,bottom:10 })
+                  .margin({ top: 10, left: 40, bottom: 10 })
+
                   Middle(contact.email, contact.phone)
-                }.backgroundColor($r('app.color.page_background'))
+                }
+                .backgroundColor($r('app.color.page_background'))
                 .height(90)
                 .borderRadius(5)
                 .width('90%')
-                .margin({left:'5%',right:'5%'})
+                .margin({ left: '5%', right: '5%' })
 
               }
               .margin({ bottom: 20 })
-
 
             })
           }

@@ -1,14 +1,12 @@
 //课程分类类型
 
-export default class CourseCategory{
+export default class CourseCategory {
   //id
-  "id" : number
+  "id": number
   //分类名称
-  "CourseCategoryName":string
+  "CourseCategoryName": string
 
-
-
-  constructor(id : number, CourseCategoryName : string) {
+  constructor(id: number, CourseCategoryName: string) {
     this.id = id
     this.CourseCategoryName = CourseCategoryName
   }

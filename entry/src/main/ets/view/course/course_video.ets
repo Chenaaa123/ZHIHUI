@@ -1,26 +1,16 @@
 import { JSON } from '@kit.ArkTS'
 
-import { router } from '@kit.ArkUI';
 import VideoItem from '../../viewmodel/VideoItem';
 
-// export class VideoData {
-//   id?: number;
-//   video?: Resource;
-//   videoName?: string;
-// }
 
 @Component
-export default struct Course{
-  // videoData: string | Resource | undefined;
-  //  @Prop item: Videoitem;
-  // @State innerResource: Resource = $rawfile('hand_first1.mp4');
+export default struct Course {
   @Consume pageInfos: NavPathStack;
   @State wordDataList: Array<VideoItem> = [];
 
   aboutToAppear(): void {
     let data = JSON.stringify(this.pageInfos.getParamByName('course_video'));
     this.wordDataList = JSON.parse(data) as Array<VideoItem>;
-    // console.log(this.innerResource);
   }
 
   build() {

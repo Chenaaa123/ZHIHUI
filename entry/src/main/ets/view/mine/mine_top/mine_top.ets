@@ -1,7 +1,6 @@
 import mine_bottom from '../mine_bottom';
 import { image } from '@kit.ImageKit';
 import sigInDialog from './signInDialog';
-
 PersistentStorage.persistProp("study_day_list", new Map<number, string>([]));
 PersistentStorage.persistProp('user_name', "请输入用户名");
 
@@ -12,9 +11,7 @@ export default struct mine_top {
   @Consume pageInfos: NavPathStack;
   @StorageLink('user_name') user_name: string = '用户'
   @StorageLink('study_days') study_days: number = 0;
-
   @State pixel: image.PixelMap | undefined = undefined;
-
 
   dialogController: CustomDialogController = new CustomDialogController({
     builder: sigInDialog({
@@ -127,7 +124,6 @@ export default struct mine_top {
               this.pageInfos.pushPath({ name: 'Collect_words' })
             })
 
-          // Divider().vertical(true).height(30).color($r('app.color.light_gray')).opacity(10).width(10).margin(10)
           Text('|')
             .textAlign(TextAlign.Center)
             .fontColor($r('app.color.light_gray'))
@@ -137,23 +133,20 @@ export default struct mine_top {
               middle: { anchor: '__container__', align: HorizontalAlign.Center }
             })
             .offset({ y: 16 })
-
         }
         .borderRadius(6)
         .backgroundColor(Color.White)
+        .zIndex(2)
         .width('85%')
         .height(100)
         .margin({ bottom: 60, top: 10 })
         .shadow({ radius: 3, color: Color.Gray }) //学习天数
-
-
       }
       .width('100%')
       .height('35%')
       .backgroundColor(Color.White)
       .backgroundImage($r('app.media.mineBg'))
       .backgroundImageSize({ height: '75%', width: '100%' }) //登录学习天数
-
       Column() {
         mine_bottom()
       }.backgroundColor(Color.White)

@@ -1,18 +1,5 @@
-class DividerTmp {
-  strokeWidth: Length = 1
-  startMargin: Length = 10
-  endMargin: Length = 20
-  color: ResourceColor = '#ffe9f0f0'
+import DividerTmp from "../../model/DividerTmpModel";
 
-  constructor(strokeWidth: Length, startMargin: Length, endMargin: Length, color: ResourceColor) {
-    this.strokeWidth = strokeWidth
-    this.startMargin = startMargin
-    this.endMargin = endMargin
-    this.color = color
-  }
-}
-
-export {DividerTmp}
 
 class Mine_Menu {
   name: string;
@@ -28,52 +15,50 @@ class Mine_Menu {
 
 @Component
 export default struct mine_bottom {
+  @State egDivider: DividerTmp = new DividerTmp(1, 60, 10, '#ffe9f0f0')
+  @Consume pageInfos: NavPathStack;
   private Mine_Menus: Array<Mine_Menu> = [
-    new Mine_Menu('学习记录', $r('app.media.record'),'study_record'),
-    new Mine_Menu('我的发布', $r('app.media.annouce'),''),
-    new Mine_Menu('我的积分', $r('app.media.intergral'), ''),
-    new Mine_Menu('我的下载', $r('app.media.download'), ''),
-    new Mine_Menu('账号信息', $r('app.media.account'),'account_info'),
-    new Mine_Menu('客服反馈', $r('app.media.feedback'), ''),
+  // new Mine_Menu('学习记录', $r('app.media.record'),'study_record'),
+  // new Mine_Menu('我的发布', $r('app.media.annouce'),''),
+  // new Mine_Menu('我的积分', $r('app.media.intergral'), ''),
+  // new Mine_Menu('我的下载', $r('app.media.download'), ''),
+    new Mine_Menu('账号信息', $r('app.media.account'), 'account_info'),
+    // new Mine_Menu('客服反馈', $r('app.media.feedback'), ''),
     new Mine_Menu('设置', $r('app.media.set'), 'setting_info'),
   ];
 
-  @State egDivider: DividerTmp = new DividerTmp(1, 60, 10, '#ffe9f0f0')
-  @Consume pageInfos: NavPathStack;
-
   build() {
     Column() {
-      NavDestination(){
-        List(){
+      NavDestination() {
+        List() {
           ForEach(
             this.Mine_Menus,
-            (mine_menu:Mine_Menu) => {
-              ListItem(){
+            (mine_menu: Mine_Menu) => {
+              ListItem() {
                 Row() {
                   Image(mine_menu.image)
                     .width(30)
                     .height(30)
-                    .margin({left:25})
+                    .margin({ left: 25 })
                   Text(mine_menu.name)
                     .layoutWeight(1)
-                    .offset({x:13})
+                    .offset({ x: 13 })
                     .fontSize(19)
                     .textAlign(TextAlign.Start)
                     .height(20)
                   Image($r('app.media.right'))
-                    .size({width:15})
+                    .size({ width: 15 })
                     .fillColor($r('app.color.light_gray'))
                 }.width('93%')
                 .height(60)
               }
               .onClick(() => {
-                this.pageInfos.pushPath({ name:mine_menu.menu_name})
+                this.pageInfos.pushPath({ name: mine_menu.menu_name })
               })
             })
         }
         .divider(this.egDivider)
       }
-
 
     }.width('100%')
     .height('100%')

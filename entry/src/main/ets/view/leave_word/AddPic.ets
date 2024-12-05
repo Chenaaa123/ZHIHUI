@@ -1,18 +1,3 @@
-/*
- * Copyright (c) 2024 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 import { photoAccessHelper } from '@kit.MediaLibraryKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { dataSharePredicates } from '@kit.ArkData';
@@ -78,18 +63,13 @@ export struct AddPic {
   }
 
   writeDistributedFile(buf: ArrayBuffer, displayName: string): void {
-    // The asset is written to the distributed file directory.
-    // Obtain the distributed file directory path.
     let distributedDir: string = this.context.distributedFilesDir;
     let fileName: string = '/' + displayName;
     let filePath: string = distributedDir + fileName;
     try {
-      // Create a file in a distributed directory.
       let file = fs.openSync(filePath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
-      hilog.info(0x0000, '[AddPic]','Create file success.');
-      // Write content to a file (if the asset is a picture, the picture can be converted to a buffer to write)
+      hilog.info(0x0000, '[AddPic]', 'Create file success.');
       fs.writeSync(file.fd, buf);
-      // closed file.
       fs.closeSync(file.fd);
     } catch (error) {
       let err: BusinessError = error as BusinessError;
@@ -148,7 +128,7 @@ export struct AddPic {
         Text(this.imageUriArray.length === 0 ? '添加图片' : '继续添加')
           .fontSize($r('app.integer.text_size_body3'))
           .fontColor($r('app.color.add_image_background'))
-          .margin({top:$r('app.integer.comm_padding_margin_mini')})
+          .margin({ top: $r('app.integer.comm_padding_margin_mini') })
       }
       .justifyContent(FlexAlign.Center)
       .width(CommonConstants.FULL_PERCENT)
