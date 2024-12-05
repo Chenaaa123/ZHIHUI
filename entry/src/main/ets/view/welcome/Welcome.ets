@@ -60,8 +60,9 @@ struct Welcome {
 
       Image($r('app.media.Welcome'))
         .width(180)
+        .height('auto')
         .interpolation(ImageInterpolation.High)
-      Text('“指麾”旨在推广手语,助听障群体')
+      Text('用手指点亮聆听，用爱心传递温暖')
         .fontSize(13)
         .opacity(0.8)
         .fontColor(Color.White)

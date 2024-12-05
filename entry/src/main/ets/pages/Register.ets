@@ -110,7 +110,7 @@ struct Register {
             .backgroundColor(0x317aff)
             .width(100)
             .onClick(() => {
-              if (this.password_user == this.password_again && this.password_again != null) {
+              if (this.password_user === this.password_again && this.password_again != null) {
                 this.account_password.set(this.account_user,this.password_user)
                 promptAction.showToast({
                   message: '恭喜您注册成功',

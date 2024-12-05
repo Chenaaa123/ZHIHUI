@@ -1,6 +1,6 @@
 import { CourseCategoryEnum } from '../model/CourseCategoryModel';
 import ItemVideoModel from '../model/ItemVideoModel';
-import course_swiper from '../view/Course/course_swiper';
+import course_swiper from '../view/course/course_swiper';
 import { DividerTmp } from '../view/mine/mine_bottom';
 import VideoItem from '../viewmodel/VideoItem';
 

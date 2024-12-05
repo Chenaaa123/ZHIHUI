@@ -169,7 +169,7 @@ export default struct Word {
                           .fontSize(18)
                           .fontWeight(CommonConstants.FONT_WEIGHT_500)
                           .textStyle()
-                        // Image($r('app.media.gaoxing'))
+
                         Image(item.image)
                           .width('70%')
                           .height(150)

@@ -1,5 +1,5 @@
 import mine_bottom from '../view/mine/mine_bottom'
-import mine_top from '../view/mine/mine_top'
+import mine_top from '../view/mine/mine_top/mine_top'
 
 
 @Component

@@ -3,6 +3,7 @@ import { ItemCategoryEnum } from '../model/ItemCategoryModel';
 import ItemDictionaryModel from '../model/ItemDictionaryModel';
 
 import DictionaryItem from '../viewmodel/DictionaryItem';
+import { router } from '@kit.ArkUI';
 
 
 @Component

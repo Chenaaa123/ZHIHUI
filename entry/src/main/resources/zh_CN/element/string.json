@@ -11,6 +11,10 @@
     {
       "name": "EntryAbility_label",
       "value": "指麾"
+    },
+    {
+      "name": "add_picture_prompt",
+      "value": "添加图片达到上限"
     }
   ]
 }

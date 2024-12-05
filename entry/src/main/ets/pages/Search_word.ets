@@ -59,6 +59,12 @@ export default struct Search_word {
     this.history = [];
   }
 
+  @Builder NoneWord(){
+    Column(){
+      // Image()
+    }
+  }
+
   build() {
     NavDestination() {
       Column(){
@@ -158,6 +164,6 @@ export default struct Search_word {
         .margin({ top: 6 ,left:20});
           }
       }.alignItems(HorizontalAlign.Start)
-    }
+    }.title('词汇搜索')
   }
 }

@@ -1,6 +1,6 @@
-import { DividerTmp } from "./mine_bottom";
-import { CommonConstants } from '../../common/constants/CommonConstants';
-import ItemDictionaryModel from "../../model/ItemDictionaryModel";
+import { DividerTmp } from "../mine_bottom";
+import { CommonConstants } from '../../../common/constants/CommonConstants';
+import ItemDictionaryModel from "../../../model/ItemDictionaryModel";
 
 @Component
 export default struct collect_words{

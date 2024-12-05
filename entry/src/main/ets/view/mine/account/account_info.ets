@@ -1,16 +1,33 @@
 import { router } from '@kit.ArkUI'
+import { photoAccessHelper } from '@kit.MediaLibraryKit';
+import { image } from '@kit.ImageKit';
+import { fileIo as fs } from '@kit.CoreFileKit';
+import DividerTmp from '../../../model/DividerTmpModel';
 
-class DividerTmp {
-  strokeWidth: Length = 1
-  startMargin: Length = 10
-  endMargin: Length = 20
-  color: ResourceColor = '#ffe9f0f0'
+PersistentStorage.persistProp("pixel", undefined);
 
-  constructor(strokeWidth: Length, startMargin: Length, endMargin: Length, color: ResourceColor) {
-    this.strokeWidth = strokeWidth
-    this.startMargin = startMargin
-    this.endMargin = endMargin
-    this.color = color
+
+// class DividerTmp {
+//   strokeWidth: Length = 1
+//   startMargin: Length = 10
+//   endMargin: Length = 20
+//   color: ResourceColor = '#ffe9f0f0'
+//
+//   constructor(strokeWidth: Length, startMargin: Length, endMargin: Length, color: ResourceColor) {
+//     this.strokeWidth = strokeWidth
+//     this.startMargin = startMargin
+//     this.endMargin = endMargin
+//     this.color = color
+//   }
+// }
+
+class Preferences{
+  "albumPath":string
+  "photoSize":number
+
+  constructor(albumPath:string,photoSize:number){
+    this.albumPath = albumPath
+    this.photoSize = photoSize
   }
 }
 
@@ -38,6 +55,47 @@ export default struct account_info {
 
   // @StorageLink("persistedMapString") persistedMapString: Map<number, string> = new Map<number, string>([]);
 
+  //相册获取头像
+  @State getAlbum: string = '显示相册中的图片';
+  @State pixel: image.PixelMap | undefined = undefined;
+
+  @State albumPath: string = '';
+  @State photoSize: number = 0;
+
+  async getPictureFromAlbum() {
+    // 拉起相册，选择图片
+    let PhotoSelectOptions = new photoAccessHelper.PhotoSelectOptions();
+    PhotoSelectOptions.MIMEType = photoAccessHelper.PhotoViewMIMETypes.IMAGE_TYPE;
+    PhotoSelectOptions.maxSelectNumber = 1;
+    let photoPicker = new photoAccessHelper.PhotoViewPicker();
+    let photoSelectResult: photoAccessHelper.PhotoSelectResult = await photoPicker.select(PhotoSelectOptions);
+    this.albumPath = photoSelectResult.photoUris[0];
+
+    // 读取图片为buffer
+    const file = fs.openSync(this.albumPath, fs.OpenMode.READ_ONLY);
+    this.photoSize = fs.statSync(file.fd).size;
+    console.info('Photo Size: ' + this.photoSize);
+    let buffer = new ArrayBuffer(this.photoSize);
+    fs.readSync(file.fd, buffer);
+    fs.closeSync(file);
+
+    // 解码成PixelMap
+    const imageSource = image.createImageSource(buffer);
+    console.log('imageSource: ' + JSON.stringify(imageSource));
+    this.pixel = await imageSource.createPixelMap({});
+
+  //   // 持久化存储图片路径和大小
+  //   this.saveToPreferences();
+  }
+  //
+  // saveToPreferences() {
+  //   const preferences = new Preferences();
+  //   preferences.putString('albumPath', this.albumPath);
+  //   preferences.putInt('photoSize', this.photoSize);
+  // }
+
+  //
+
   private accounts :Array<Account>=[
     new Account(0,'用户名','','user_name'),
     new Account(1,'个性签名','','signature'),
@@ -49,9 +107,15 @@ export default struct account_info {
   build() {
     NavDestination() {
       Flex({ direction: FlexDirection.Column, justifyContent: FlexAlign.Start, alignItems: ItemAlign.Center }) {
-        Image($r('app.media.user'))
+        Image(this.pixel ||$r('app.media.user'))
           .height(70)
+          .width(70)
           .margin({ top: 30 })
+          .borderRadius(50)
+          .onClick(() => {
+            this.getPictureFromAlbum();
+          })
+
         List() {
           ForEach(
             this.accounts,

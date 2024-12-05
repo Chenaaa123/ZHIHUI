@@ -39,6 +39,10 @@
     {
       "name": "CAMERA",
       "value": "本地传到相册"
+    },
+    {
+      "name": "add_picture_prompt",
+      "value": "The number of added pictures reaches the upper limit."
     }
   ]
 }
