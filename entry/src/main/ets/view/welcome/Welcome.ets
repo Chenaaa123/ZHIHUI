@@ -7,6 +7,7 @@ import welcome_agree from './welcome_agree'
 struct Welcome {
   @StorageLink('welcome_approve') welcome_approve: number = 0
   context = getContext(this) as common.UIAbilityContext
+  autoCancel: boolean = false;
   agree: CustomDialogController = new CustomDialogController({
     builder: welcome_agree({
       confirm: (): void => this.onConfirm(),
@@ -15,6 +16,10 @@ struct Welcome {
   })
 
   aboutToAppear(): void {
+    //1.加载首选项
+    //2.判断是否同意
+    //2.1.同意，跳转首选项
+    //2.2.不同意，弹窗
     if (this.welcome_approve == 0) {
       this.agree.open()
     } else {
@@ -29,11 +34,13 @@ struct Welcome {
       router.replaceUrl({
         url: 'pages/Login'
       })
-    }, 3000)
+    }, 1500)
   }
 
   onConfirm() {
+    //1.保存首选项
 
+    //2.跳转到首页
     this.jumpToLogin()
   }
 
@@ -66,5 +73,8 @@ struct Welcome {
     }.width('100%')
     .height('100%')
     .backgroundColor($r('app.color.light_primary_color'))
+    .onClick(() =>{
+      this.agree.open()
+    })
   }
 }

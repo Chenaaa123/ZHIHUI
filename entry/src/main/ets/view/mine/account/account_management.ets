@@ -1,3 +1,4 @@
+//定义账号管理页面的结构和布局
 import { promptAction } from "@kit.ArkUI"
 
 
@@ -53,11 +54,11 @@ export default struct account_management {
                   Text(account.name)
                     .width(100)
                     .height(40)
-                    .margin({ left: 25 })
+                    .margin({ left: 10 })
                   Blank()
                   if (account.menuId == 0) {
                     Text(`${this.current_name}`)
-                      .offset({ x: -10 })
+                      .margin({right: 8})
                       .fontSize(15)
                       .textAlign(TextAlign.Start)
                       .height(20)
@@ -66,7 +67,7 @@ export default struct account_management {
                       .size({ width: 15 })
                   } else if (account.menuId == 2) {
                     Text(this.look ? '******' : `${this.current_password}`)
-                      .offset({ x: -10 })
+                      .margin({right: 2})
                       .fontSize(15)
                       .textAlign(TextAlign.Start)
                       .height(20)
@@ -76,9 +77,9 @@ export default struct account_management {
                     Image($r('app.media.right'))
                       .size({ width: 15 })
                   }
-                }.width('93%')
+                }.width('90%')
                 .height(40)
-                .margin({ top: 10 })
+                .margin({ top: 10, left: "5%", right:"5%" })
                 .onClick(() => {
                   if (account.menuId == 1) {
                     this.look = false

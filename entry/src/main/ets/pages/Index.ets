@@ -94,6 +94,7 @@ struct Index {
     } else if (name === 'edit') {
       edit()
     }
+
   }
 
   build() {

@@ -123,47 +123,54 @@ struct Register {
             .backgroundColor(0x317aff)
             .width(100)
             .onClick(() => {
-              if (this.password_user.trim() != '' && this.password_again.trim() != '') {
-                if (this.password_user == this.password_again) {
-                  if (this.account_user_name.trim() != '') {
-                    this.account_password.set(this.account_user, this.password_user)
-                    promptAction.showToast({
-                      message: '恭喜您注册成功',
-                      duration: 5000, // 持续时间为5秒
-                    })
-                    router.replaceUrl({
-                      url: 'pages/Login',
-                    },
-                      router.RouterMode.Single,
-                      err => {
-                        if (err) {
-                          console.log(`路由失败， errCode: ${err.code} errMsg: ${err.message}`);
+              if (!this.account_password.has(parseInt(this.text_again))) {
+
+
+                if (this.password_user.trim() != '' && this.password_again.trim() != '') {
+                  if (this.password_user == this.password_again) {
+                    if (this.account_user_name.trim() != '') {
+                      this.account_password.set(this.account_user, this.password_user)
+                      promptAction.showToast({
+                        message: '恭喜您注册成功',
+                        duration: 5000, // 持续时间为5秒
+                      })
+                      router.replaceUrl({
+                        url: 'pages/Login',
+                      },
+                        router.RouterMode.Single,
+                        err => {
+                          if (err) {
+                            console.log(`路由失败， errCode: ${err.code} errMsg: ${err.message}`);
+                          }
                         }
-                      }
-                    )
-                  } else {
+                      )
+                    } else { //if
+                      promptAction.showToast({
+                        message: '账号不能为空',
+                        textColor: Color.Red,
+                        duration: 5000, // 持续时间为5秒
+                      })
+                    }
+                  } else { //if
                     promptAction.showToast({
-                      message: '账号不能为空',
+                      message: '您两次输入的密码不一致,请重新输入!',
                       textColor: Color.Red,
                       duration: 5000, // 持续时间为5秒
+
                     })
                   }
-                } else {
+                } else { //第一个if
                   promptAction.showToast({
-                    message: '您两次输入的密码不一致,请重新输入!',
+                    message: '您的密码不能为空',
                     textColor: Color.Red,
                     duration: 5000, // 持续时间为5秒
-
-                  })
+                  });
                 }
-
-              } else {
+              }else {
                 promptAction.showToast({
-                  message: '您的密码不能为空',
-                  textColor: Color.Red,
-                  duration: 5000, // 持续时间为5秒
-                });
-              }
+                message: '该账户已注册',
+                duration: 1000, // 持续时间为5秒
+              })}
             })
         }
         .width('100%')

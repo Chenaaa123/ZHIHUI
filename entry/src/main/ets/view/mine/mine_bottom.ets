@@ -23,7 +23,7 @@ export default struct mine_bottom {
   // new Mine_Menu('我的积分', $r('app.media.intergral'), ''),
   // new Mine_Menu('我的下载', $r('app.media.download'), ''),
     new Mine_Menu('账号信息', $r('app.media.account'), 'account_info'),
-    // new Mine_Menu('客服反馈', $r('app.media.feedback'), ''),
+    // new Mine_Menu('用户反馈', $r('app.media.feedback'), ''),
     new Mine_Menu('设置', $r('app.media.set'), 'setting_info'),
   ];
 

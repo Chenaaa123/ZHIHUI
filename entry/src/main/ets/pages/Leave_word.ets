@@ -2,16 +2,13 @@ import { AddPic } from '../view/leave_word/AddPic';
 import { ImageInfo } from '../model/ContentInfo';
 import { promptAction } from '@kit.ArkUI';
 
-PersistentStorage.persistProp('user_name', "请输入用户名");
 
 @Component
 export default struct Leave_word {
   @Consume pageInfos: NavPathStack
   editorController = new RichEditorController()
-  suggestion = new RichEditorController()
-  @State getContentLength: number = 0;
   @StorageLink('imageUriArray') imageUriArray: Array<ImageInfo> = [];
-
+  @StorageLink('Using_fell') Using_fell :string =''
   clearImageArray() {
     this.imageUriArray = [];
     console.log('图片数组已清空');
@@ -25,7 +22,7 @@ export default struct Leave_word {
             .fontSize(18)
             .margin({ top: 15, left: 15 })
           RichEditor({ controller: this.editorController })
-            .placeholder("您整体体验下来起来感觉如何，可以具体说说是哪些方面", {
+            .placeholder('您整体体验下来起来感觉如何，可以具体说说是哪些方面', {
               fontColor: Color.Gray,
               font: {
                 size: 14,
@@ -50,7 +47,6 @@ export default struct Leave_word {
             .fontColor(Color.Black)
             .onClick(() => {
               this.editorController.deleteSpans()
-              this.getContentLength = 0
             })
             .offset({ x: 230, y: -30 })
         }

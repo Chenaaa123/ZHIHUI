@@ -1,7 +1,10 @@
+//定义账号信息页面的结构和布局
 import DividerTmp from "../../../model/DividerTmpModel"
 import { photoAccessHelper } from '@kit.MediaLibraryKit';
 import { image } from '@kit.ImageKit';
 import { fileIo as fs } from '@kit.CoreFileKit';
+import { Context } from "@kit.AbilityKit";
+import { preferences } from "@kit.ArkData";
 
 class Account {
   menuId: number
@@ -17,6 +20,10 @@ class Account {
   }
 }
 
+
+
+
+
 @Component
 export default struct account_info {
   @Consume pageInfos: NavPathStack;
@@ -28,10 +35,13 @@ export default struct account_info {
     new Account(1, '个性签名', '', 'signature'),
     new Account(2, '账号管理', '', 'account_management')
   ]
+
   @State pixel: image.PixelMap | undefined = undefined;
   @State getAlbum: string = '显示相册中的图片';
   @State albumPath: string = '';
   @State photoSize: number = 0;
+  @State imageUrl : string = ''
+
 
   async getPictureFromAlbum() {
     // 拉起相册，选择图片
@@ -56,18 +66,17 @@ export default struct account_info {
     this.pixel = await imageSource.createPixelMap({});
   }
 
-
   build() {
     NavDestination() {
       Flex({ direction: FlexDirection.Column, justifyContent: FlexAlign.Start, alignItems: ItemAlign.Center }) {
-          Image(this.pixel || $r('app.media.user'))
-            .height(70)
-            .width(70)
-            .margin({ top: 30 })
-            .onClick(()=>{
-              this.getPictureFromAlbum();
-            })
-            .borderRadius(50)
+        Image(this.pixel || $r('app.media.user'))
+          .height(70)
+          .width(70)
+          .margin({ top: 30 })
+          .onClick(()=>{
+            this.getPictureFromAlbum();
+          })
+          .borderRadius(50)
         List() {
           ForEach(
             this.accounts,
@@ -77,32 +86,33 @@ export default struct account_info {
                   Text(account.name)
                     .width(100)
                     .height(40)
-                    .margin({ left: 25 })
+                    .margin({ left: 10 })
                   Blank()
                   if (account.menuId == 1) {
                     Text(this.signature)
-                      .offset({ x: -10 })
+                      .margin({ right: 2 })
                       .fontSize(15)//
                       .textAlign(TextAlign.Start)
                       .height(20)
                   } else if (account.menuId == 0) {
                     Text(this.user_name)
-                      .offset({ x: -10 })
+                      .margin({ right: 2 })
                       .fontSize(15)//
                       .textAlign(TextAlign.Start)
                       .height(20)
                   }
                   Text(account.account_name)
-                    .offset({ x: -10 })
+                    .margin({ right: 2 })
                     .fontSize(15)//
                     .textAlign(TextAlign.Start)
                     .height(20)
 
                   Image($r('app.media.right'))
                     .size({ width: 15 })
-                }.width('93%')
+                    .margin({ right: 7 })
+                }.width('90%')
                 .height(40)
-                .margin({ top: 10 })
+                .margin({ top: 10,left: '5%',right: '5%'})
                 .onClick(() => {
                   this.pageInfos.pushPath({ name: account.jump_name })
                 })

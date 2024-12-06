@@ -4,7 +4,6 @@ import ItemVideoModel from '../model/ItemVideoModel';
 import course_swiper from '../view/course/course_swiper';
 import VideoItem from '../viewmodel/VideoItem';
 
-
 @Component
 export default struct Course {
   @Consume pageInfos: NavPathStack;
@@ -12,7 +11,7 @@ export default struct Course {
   @State clickUp: number[] = []
   @State image_iconOne: ResourceStr = $r('app.media.bottom')
   @State image_iconTwo: ResourceStr = $r('app.media.bottom')
-
+  @State clickVideo : ResourceStr = ''
   @Builder
   CourseCategoryNameBuilder(items: VideoItem[]) {
     ForEach(items, (item: VideoItem) => {
@@ -70,14 +69,19 @@ export default struct Course {
     .divider(this.egDivider)
   }
 
+
+
+
   build() {
     NavDestination() {
       Column() {
-        Column() {
-          course_swiper()
+
+        Column() {      //轮播图
+            course_swiper()
         }
         .width('100%')
         .height(180)
+
 
         //课程视频
         Row() {

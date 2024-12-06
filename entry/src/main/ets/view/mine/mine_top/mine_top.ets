@@ -33,6 +33,7 @@ export default struct mine_top {
     console.info('Callback when the second button is clicked')
   }
 
+
   build() {
     NavDestination() {
       Column() {
@@ -138,7 +139,7 @@ export default struct mine_top {
         .backgroundColor(Color.White)
         .zIndex(2)
         .width('85%')
-        .height(100)
+        .height(94)
         .margin({ bottom: 60, top: 10 })
         .shadow({ radius: 3, color: Color.Gray }) //学习天数
       }
