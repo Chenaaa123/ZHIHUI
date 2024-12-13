@@ -52,7 +52,7 @@ export default struct mine_top {
 
             //用户名
             Row() {
-              TextInput({ placeholder: this.user_name })
+              TextInput({ placeholder: '请输入用户名：',text:this.user_name })
                 .backgroundColor(Color.White)
                 .width('auto')
                 .height(35)

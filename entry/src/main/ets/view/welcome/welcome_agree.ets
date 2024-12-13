@@ -1,6 +1,5 @@
 import { router } from "@kit.ArkUI";
-
-
+import { Core } from "@ohos/hypium";
 
 
 PersistentStorage.persistProp('welcome_approve', 0);
@@ -34,8 +33,8 @@ PersistentStorage.persistProp('welcome_approve', 0);
           Span('《用户协议》和《指麾隐私政策》')
             .fontColor('red')
             .onClick(()=>{
-              this.visibility_text = Visibility.None
-              this.visibility_again = Visibility.Visible
+              this.visibility_text = Visibility.None   //小窗隐藏
+              this.visibility_again = Visibility.Visible    //大窗显示
               this.height_text = '100%'
             })
           Span('帮助您了解我们收集、使用、存储和共享个人信息的情况,特别是我们所采集的个人信息类型与用途的对应关系。此外,您还能了解到您所享有的相关权利及实现途径。如您同意,请点击下方按钮开始接受我们的服务。')
@@ -73,12 +72,12 @@ PersistentStorage.persistProp('welcome_approve', 0);
       .visibility(this.visibility_text)
       .width('100%')
       .padding(10)
-      //.backgroundColor($r('app.color.lightest_primary_color'))
       .backgroundColor($r('app.color.index_page_background'))
       .borderRadius(5)
+
       Column(){
         RelativeContainer(){
-          Text('《指麾应用隐私政策》')
+          Text('《指麾应用隐私政策》')     //大窗顶部
             .fontWeight(FontWeight.Bold)
             .fontSize(20)
             .alignRules({
@@ -86,8 +85,8 @@ PersistentStorage.persistProp('welcome_approve', 0);
             })
           Image($r('app.media.input_delete'))
             .onClick(()=>{
-              this.visibility_text = Visibility.Visible
-              this.visibility_again = Visibility.None
+              this.visibility_text = Visibility.Visible     //小窗用户协议显示
+              this.visibility_again = Visibility.None       //大窗隐藏
               this.height_text = ''
             })
             .width(20)
@@ -152,8 +151,9 @@ PersistentStorage.persistProp('welcome_approve', 0);
         .maxLines(210)
         .fontSize(15)
         .lineHeight(22)
-
+          .backgroundColor(Color.White)
       }
+      .backgroundColor(Color.White)
       .visibility(this.visibility_again)
       .height(this.height_text)
       .width('100%')

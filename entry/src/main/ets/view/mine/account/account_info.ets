@@ -3,8 +3,7 @@ import DividerTmp from "../../../model/DividerTmpModel"
 import { photoAccessHelper } from '@kit.MediaLibraryKit';
 import { image } from '@kit.ImageKit';
 import { fileIo as fs } from '@kit.CoreFileKit';
-import { Context } from "@kit.AbilityKit";
-import { preferences } from "@kit.ArkData";
+
 
 class Account {
   menuId: number

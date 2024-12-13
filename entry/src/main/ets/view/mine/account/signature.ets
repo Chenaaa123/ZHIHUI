@@ -1,4 +1,4 @@
-PersistentStorage.persistProp('signature', "请编辑个性签名");
+PersistentStorage.persistProp('signature', '');
 
 @Component
 export default struct signature {
